@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp2.ControlPanel"
+             Title="ControlPanel">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+
+    <Grid RowDefinitions="*,Auto"
+          RowSpacing="25"
+          VerticalOptions="Start">
+        <Border
+            Grid.Row="0"
+            MaximumHeightRequest="200"
+            Stroke="#D2D1E7"
+            BackgroundColor="White"
+            StrokeThickness="2.5"
+            Padding="10">
+            <HorizontalStackLayout 
+                VerticalOptions="Center"
+                Spacing="50">
+                <Image
+                Source="logo_facens.jpg"
+                Aspect="AspectFit"
+                WidthRequest="128"
+                HeightRequest="128"
+                SemanticProperties.Description="FACENS" />
+
+                <Label 
+                    Text="Hello" 
+                    VerticalOptions="Center"
+                    FontSize="18"/>
+            </HorizontalStackLayout>
+        </Border>
+        <Border
+            x:Name="admin_panel"
+            IsVisible="true"
+            Grid.Row="1"
+            MaximumHeightRequest="200"
+            Stroke="#D2D1E7"
+            BackgroundColor="White"
+            StrokeThickness="2.5"
+            Padding="10">
+            <Grid RowDefinitions="*,Auto">
+                <HorizontalStackLayout
+                    HorizontalOptions="Center"
+                    Grid.Row="0">
+                    <Label 
+                        Text="Acesso Admin"
+                        FontSize="20"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout
+                    Grid.Row="1"
+                    Spacing="15"
+                    HorizontalOptions="Center">
+                    <Button 
+                        Style="{StaticResource ButtonStyle1}"
+                        Text="Controle Cadastral"
+                        Clicked="OnDbControlClicked"/>
+                    <Button
+                        Style="{StaticResource ButtonStyle1}"
+                        Text="Controle de Horário"/>
+                    <Button
+                        Style="{StaticResource ButtonStyle1}"
+                        Text="Canal de Avisos"/>
+
+                </HorizontalStackLayout>
+            </Grid>
+        </Border>
+    </Grid>
+    
+</ContentPage>
