@@ -2,6 +2,7 @@ using MauiApp2.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace MauiApp2;
 public partial class Page2 : ContentPage
@@ -48,6 +49,9 @@ public partial class Page2 : ContentPage
     {
         if(sender is Entry entry)
         {
+            if (entry.Text == null)
+                return;
+
             string digits = new string(entry.Text.Where(char.IsDigit).ToArray()); //Select digits only
 
             if (digits.Length > 6)
@@ -66,9 +70,9 @@ public partial class Page2 : ContentPage
             entry.CursorPosition = entry.Text.Length;                           //Move cursor to the line end
         }
 
-        if (!await _usrControl.ContainsUserByAsync(u => u.Id == Convert.ToInt32(entry_ID.Text)))
-        {
-            await DisplayAlert("Erro", "Registro inexistente", "OK");
-        }
+        //if (!await _usrControl.ContainsUserByAsync(u => u.Id == Convert.ToInt32(entry_ID.Text)))
+        //{
+        //    await DisplayAlert("Erro", "Registro inexistente", "OK");
+        //}
     }
 }

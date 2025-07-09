@@ -52,6 +52,7 @@
                 MaxLength="6"
                 ReturnType="Send"
                 Completed="OnCompletion"
+                Unfocused="OnCompletion"
                 HorizontalOptions="FillAndExpand"></Entry>
 
                 <Entry

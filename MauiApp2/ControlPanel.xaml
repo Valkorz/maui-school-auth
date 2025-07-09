@@ -8,7 +8,7 @@
         <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
     </Shell.BackButtonBehavior>
 
-    <Grid RowDefinitions="*,Auto"
+    <Grid RowDefinitions="Auto,Auto"
           RowSpacing="25"
           VerticalOptions="Start">
         <Border
@@ -18,21 +18,13 @@
             BackgroundColor="White"
             StrokeThickness="2.5"
             Padding="10">
-            <HorizontalStackLayout 
-                VerticalOptions="Center"
-                Spacing="50">
-                <Image
-                Source="logo_facens.jpg"
-                Aspect="AspectFit"
-                WidthRequest="128"
-                HeightRequest="128"
-                SemanticProperties.Description="FACENS" />
-
-                <Label 
-                    Text="Hello" 
-                    VerticalOptions="Center"
-                    FontSize="18"/>
-            </HorizontalStackLayout>
+            <Grid ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="20">
+                <Image Source="user.png" HeightRequest="64" Aspect="AspectFit" SemanticProperties.Description="USER" Grid.Column="0" Grid.RowSpan="3"/>
+                
+                <Label x:Name="Welcome" Grid.Column="1" Grid.Row="0" Text="Welcome, @!" FontSize="Medium"/>
+                <Button Grid.Column="1" Grid.Row="1" Text="SIGN OUT" Pressed="OnSignOut"/>
+                
+            </Grid>
         </Border>
         <Border
             x:Name="admin_panel"

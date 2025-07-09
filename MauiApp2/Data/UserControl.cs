@@ -62,16 +62,25 @@ namespace MauiApp2.Data
         //Pushes changes to an existing user
         public async Task<int> PushUserAsync(User user)
         {
-            User target = await _context.Users.SingleAsync(u => u.Id == user.Id);
-            if (await _context.Users.ContainsAsync(user))
+            User target;
+
+            try
             {
-                //Modify properties
-                target.Password = user.Password;
-                target.Name = user.Name;
-                await _context.SaveChangesAsync();
-                return 0;
+                target = await _context.Users.SingleAsync(u => u.Id == user.Id);
             }
-            return -1;
+            catch (InvalidOperationException)
+            {
+                return await AddUserAsync(user);
+            }
+
+            //Modify properties
+            target.Password = user.Password;
+            target.Name = user.Name;
+            target.TimeOfCreation = user.TimeOfCreation;
+            target.Permissions = user.Permissions;
+            target.Email = user.Email;
+
+            return await _context.SaveChangesAsync();
         }
     }
 }

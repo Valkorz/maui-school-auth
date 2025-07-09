@@ -16,6 +16,16 @@
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="MinimumWidthRequest" Value="100" />
             </Style>
+            <Style x:Key="ButtonStyle2" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#FFFFFF"/>
+                <Setter Property="TextColor" Value="#000000"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="BorderColor" Value="Black"/>
+                <Setter Property="BorderWidth" Value="1"/>
+                <Setter Property="MinimumWidthRequest" Value="120"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
             <Style x:Key="LabelBox" TargetType="Border">
                 <Setter Property="Stroke" Value="#EBEBEA"/>
                 <Setter Property="StrokeThickness" Value="1"/>

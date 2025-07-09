@@ -1,4 +1,5 @@
-﻿using MauiApp2.Data;
+﻿
+using MauiApp2.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -6,8 +7,8 @@ namespace MauiApp2
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
         private readonly UserControl _usrControl;
+        private IDispatcherTimer? _timer;
 
         public MainPage(UserControl usrControl)
         {
@@ -27,9 +28,22 @@ namespace MauiApp2
                     (id: 0,
                     name: "Admin",
                     password: "123",
-                    defaultPermissions: User.UserPermissions.Administrator);
+                    defaultPermissions: User.UserPermissions.Administrator,
+                    email: "foo@gmail.com");
 
                 await _usrControl.AddUserAsync(admin);
+            }
+
+            SetupTimer();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if(_timer != null)
+            {
+                _timer.Stop();
+                _timer = null;
             }
         }
 
@@ -38,16 +52,30 @@ namespace MauiApp2
             await Shell.Current.GoToAsync(nameof(MauiApp2.Page2));
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        private void SetupTimer()
         {
-            count++;
+            if (_timer != null && _timer.IsRunning)
+            {
+                return;
+            }
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            _timer = Dispatcher.CreateTimer();
+            _timer.Interval = TimeSpan.FromSeconds(8);
+            _timer.Tick += (sender, e) =>
+            {
+                if (ImageCarousel.ItemsSource is not System.Collections.IList items || items.Count == 0)
+                    return;
+
+                int nextPosition = (ImageCarousel.Position + 1) % items.Count;
+
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    ImageCarousel.Position = nextPosition;
+                    Debug.WriteLine($"new Position: {ImageCarousel.Position}");
+                });
+            };
+            _timer.Start();
         }
     }
 }

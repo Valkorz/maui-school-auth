@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,18 +25,47 @@ namespace MauiApp2.Data
         public string Name { get; set; } = string.Empty;
         public DateTime TimeOfCreation { get; set; }
         public string Password { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public UserPermissions Permissions { get; set; }
 
         public User() { }
-        public User(int id, string name, string password, UserPermissions defaultPermissions)
+        public User(int id, string name, string password, UserPermissions defaultPermissions, string email)
         {
             Id = id;
             Name = name;
             TimeOfCreation = DateTime.Now;
             SetPassword(password, "ABCDEFG");
+            SetEmail(email);   
 
             //set default permissions
             Permissions = defaultPermissions;
+        }
+
+        public User Clone()
+        {
+            var user = new User
+            {
+                Id = this.Id,
+                Name = this.Name,
+                Password = this.Password,
+                Permissions = this.Permissions,
+                TimeOfCreation = TimeOfCreation
+            };
+            return user;
+        }
+
+        public int SetEmail(string email)
+        {
+            //Verify email formatting
+            if(!email.EndsWith("@gmail.com"))
+            {
+                return -1;
+            }
+            
+            //Logic for setting the email. Verifies if the email exists and sends a verification code.
+
+            Email = email;
+            return 0;
         }
 
         //Returns -1 if failure, 0 if success
