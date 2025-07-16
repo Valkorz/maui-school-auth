@@ -5,7 +5,6 @@
 
     <Border
         Stroke="#D2D1E7"
-        BackgroundColor="White"
         StrokeThickness="2.5"
         Padding="10"
         HorizontalOptions="Center"

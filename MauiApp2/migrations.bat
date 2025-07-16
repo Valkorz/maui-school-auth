@@ -5,7 +5,7 @@
 :: Cria uma migração automatica
 set MIGRATION_NAME=AutoMigration_%DATE:~6,4%%DATE:~3,2%%DATE:~0,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%
 set MIGRATION_NAME=%MIGRATION_NAME: =0%
-set ACTIVE_DB_DIRECTORY="C:\Users\vittorio.pivarci\AppData\Local\User Name\com.companyname.mauiapp2\Data\"
+set ACTIVE_DB_DIRECTORY="C:\Users\%USERNAME%\AppData\Local\User Name\com.companyname.mauiapp2\Data\"
 set LOCAL_DIRECTORY=%~dp0
 set TARGET_DB_FILE=%LOCAL_DIRECTORY%Users.db3
 

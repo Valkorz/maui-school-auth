@@ -14,8 +14,6 @@
         <Border
             Grid.Row="0"
             MaximumHeightRequest="200"
-            Stroke="#D2D1E7"
-            BackgroundColor="White"
             StrokeThickness="2.5"
             Padding="10">
             <Grid ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="20">
@@ -31,8 +29,6 @@
             IsVisible="true"
             Grid.Row="1"
             MaximumHeightRequest="200"
-            Stroke="#D2D1E7"
-            BackgroundColor="White"
             StrokeThickness="2.5"
             Padding="10">
             <Grid RowDefinitions="*,Auto">
@@ -48,14 +44,11 @@
                     Spacing="15"
                     HorizontalOptions="Center">
                     <Button 
-                        Style="{StaticResource ButtonStyle1}"
                         Text="Controle Cadastral"
                         Clicked="OnDbControlClicked"/>
                     <Button
-                        Style="{StaticResource ButtonStyle1}"
                         Text="Controle de Horário"/>
                     <Button
-                        Style="{StaticResource ButtonStyle1}"
                         Text="Canal de Avisos"/>
 
                 </HorizontalStackLayout>

@@ -14,7 +14,7 @@
         <Border Grid.Row="0">
             <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="15" RowSpacing="10">
                 <Image Source="logo_facens.jpg" Aspect="AspectFit" Grid.Column="0" Grid.RowSpan="2" HeightRequest="96"/>
-                <Button x:Name="Login" Grid.Column="1" Grid.RowSpan="2" Text="LOGIN" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" Style="{StaticResource ButtonStyle2}"/>
+                <Button x:Name="Login" Grid.Column="1" Grid.RowSpan="2" Text="LOGIN" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" />
             </Grid>
         </Border>
         <CarouselView x:Name="ImageCarousel" ItemsSource="{Binding ImageSources}" Grid.Row="1" >

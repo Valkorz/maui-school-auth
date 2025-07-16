@@ -31,6 +31,41 @@
                 <Setter Property="StrokeThickness" Value="1"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
+
+            <!-- Global background color -->
+            <Color x:Key="BackgroundColorLight">#FFFFFF</Color>
+            <Color x:Key="BackgroundColorDark">#1E1E1E</Color>
+
+            <!-- Global foreground color -->
+            <Color x:Key="TextColorLight">#222222</Color>
+            <Color x:Key="TextColorDark">#FFFFFF</Color>
+
+            <!-- Content page global style -->
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
+            </Style>
+
+            <!-- Label global page -->
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
+            </Style>
+            
+            <!-- Button global style -->
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Padding" Value="10,5"/>
+                <Setter Property="MinimumWidthRequest" Value="120"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+
+            <!-- Shadows global style -->
+            <Style TargetType="Shadow" >
+                <Setter Property="Brush" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
+            </Style>
+            
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
