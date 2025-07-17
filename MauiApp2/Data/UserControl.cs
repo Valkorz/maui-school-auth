@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System.Linq.Expressions;
+using System.Diagnostics;
 //using Java.Lang;
 //using Android.Service.Controls.Actions;
 
@@ -79,6 +80,8 @@ namespace MauiApp2.Data
             target.TimeOfCreation = user.TimeOfCreation;
             target.Permissions = user.Permissions;
             target.Email = user.Email;
+            Debug.WriteLine($"\nemail : {target.Email}\r\n");
+
 
             return await _context.SaveChangesAsync();
         }

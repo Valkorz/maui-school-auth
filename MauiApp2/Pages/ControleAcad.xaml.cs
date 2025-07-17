@@ -31,6 +31,8 @@ namespace MauiApp2.Pages {
             UsrName.Text = SelectedUser.Name;
             Pass.Text = SelectedUser.GetPassword(string.Empty);
             Email.Text = SelectedUser.Email;
+
+            Debug.WriteLine($"User email is: {SelectedUser.Email}");
         }
 
         public void OnToggled(object? sender, EventArgs e)
@@ -54,7 +56,12 @@ namespace MauiApp2.Pages {
 
         public void OnDateChanged(object? sender, EventArgs e)
         {
-            if(sender is DatePicker date_picker)
+            if (sender == null || SelectedUser == null)
+            {
+                return;
+            }
+
+            if (sender is DatePicker date_picker)
             {
                 SelectedUser.TimeOfCreation = date_picker.Date;
                 Debug.WriteLine($"Set user time of creation to: {SelectedUser.TimeOfCreation}");
@@ -62,15 +69,25 @@ namespace MauiApp2.Pages {
         }
         public void OnNameChanged(object? sender, EventArgs e)
         {
+            if (sender == null || SelectedUser == null)
+            {
+                return;
+            }
+
             if (sender is Entry entry)
             {
-                SelectedUser.Name = entry.Text == null? string.Empty : entry.Text;
+                SelectedUser.Name = entry.Text == null ? string.Empty : entry.Text;
             }
         }
 
         public void OnPassChanged(object? sender, EventArgs e)
         {
-            if(sender is Entry entry)
+            if(sender == null || SelectedUser == null)
+            {
+                return;
+            }
+
+            if (sender is Entry entry)
             {
                 SelectedUser.SetPassword(entry.Text);
             }
@@ -78,14 +95,23 @@ namespace MauiApp2.Pages {
 
         public async void OnEmailChanged(object? sender, EventArgs e)
         {
-            if(sender is Entry entry)
+            if (sender == null || SelectedUser == null)
+            {
+                return;
+            }
+
+            if (sender is Entry entry)
             {
                 int status = SelectedUser.SetEmail(entry.Text);
 
-                if(status == -1)
+                if (status == -1)
                 {
                     entry.Text = SelectedUser.Email;
                     await DisplayAlert("Erro", "Email não pôde ser verificado.", "OK");
+                }
+                else
+                {
+                    Debug.WriteLine($"Set user email to: {SelectedUser.Email} with status: {status}");
                 }
             }
         }
@@ -104,6 +130,11 @@ namespace MauiApp2.Pages {
 
         private void UpdatePermissionByState(bool state, User.UserPermissions permission)
         {
+            if (SelectedUser == null)
+            {
+                return;
+            }
+
             if (state)
             {
                 SelectedUser.Permissions |= permission;
@@ -176,6 +207,8 @@ namespace MauiApp2.Pages {
 
             SelectedUser.Id = Convert.ToInt32(Reg.Text);
             int result = await _usrControl.PushUserAsync(SelectedUser);
+
+            Debug.WriteLine($"\nResult: {result}\r\n");
 
             if (result == 0)
             {

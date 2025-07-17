@@ -21,13 +21,33 @@ namespace MauiApp2.ClassManaging
         Software_Engineering,
     }
 
+    [Flags]
+    public enum ClassComponentEnum
+    {
+        Theory,
+        Practice,
+        Laboratory,
+        Project,
+        Exam
+    }
+
+    public enum Subjects
+    {
+        Mathematics,
+        Physics,
+        Chemistry,
+        TestA,
+        TestB,
+        TestC
+    }
+
     public struct StudentClassData
     {
         public string Name { get; set; }
         public int LengthSemesters { get; set; }
     }
 
-    public struct StudentClass
+    public class StudentClass
     {
         public static readonly Dictionary<StudentClassEnum, StudentClassData> SClassData = new()
         {

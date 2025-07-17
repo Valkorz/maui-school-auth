@@ -73,7 +73,7 @@
                     <!-- Row 4  (Email) -->
                     <Border Grid.Row="5" Grid.ColumnSpan="2"/>
                     <Label Grid.Row="5" Grid.Column="0" Text="Email" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
-                    <Entry x:Name="Email" Grid.Row="5" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" MaxLength="35" Completed="OnPassChanged" Unfocused="OnEmailChanged"/>
+                    <Entry x:Name="Email" Grid.Row="5" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" MaxLength="35" Completed="OnEmailChanged" Unfocused="OnEmailChanged"/>
 
                 </Grid>
             </ScrollView>

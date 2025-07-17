@@ -49,7 +49,8 @@ namespace MauiApp2.Data
                 Name = this.Name,
                 Password = this.Password,
                 Permissions = this.Permissions,
-                TimeOfCreation = TimeOfCreation
+                TimeOfCreation = TimeOfCreation,
+                Email = this.Email
             };
             return user;
         }
