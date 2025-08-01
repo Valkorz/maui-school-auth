@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System.Linq.Expressions;
 using System.Diagnostics;
+using MauiApp2.ClassManaging;
 //using Java.Lang;
 //using Android.Service.Controls.Actions;
 
@@ -84,6 +85,62 @@ namespace MauiApp2.Data
 
 
             return await _context.SaveChangesAsync();
+        }
+
+        // GRADING STUFF
+
+        //Add grading compontent
+        public async Task<int> AddComponentAsync(StudentGradeComponent component)
+        {
+            _context.Components.Add(component);
+            return await _context.SaveChangesAsync();
+        }
+
+        //returns all existing components
+        public async Task<List<StudentGradeComponent>> GetExistingComponentsAsync()
+        {
+            return await _context.Components.ToListAsync();
+        }
+
+        //Updates existing component
+        public async Task<int> PushComponentAsync(StudentGradeComponent component)
+        {
+            StudentGradeComponent target;
+            try
+            {
+                target = await _context.Components.SingleAsync(c => c.Name == component.Name);
+            }
+            catch (InvalidOperationException)
+            {
+                return await AddComponentAsync(component);
+            }
+            //Modify properties
+            target.Description = component.Description;
+            target.Semester = component.Semester;
+            target.TargetCourses = component.TargetCourses;
+            target.AvailableInfo = component.AvailableInfo;
+            return await _context.SaveChangesAsync();
+        }
+
+        //Add new component application info
+        public async Task<int> AddComponentApplicationInfoAsync(ComponentApplicationInfo info, string componentName)
+        {
+            var component = await _context.Components.SingleAsync(c => c.Name == componentName);
+            component.AvailableInfo.Add(info);
+            return await _context.SaveChangesAsync();
+        }
+
+        //Finds component by matching identification
+        public async Task<StudentGradeComponent?> GetComponentByIdentificationAsync(string identification)
+        {
+            try
+            {
+                return await _context.Components.SingleAsync(c => c.AvailableInfo.Any(i => i.Identification == identification));
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
         }
     }
 }
