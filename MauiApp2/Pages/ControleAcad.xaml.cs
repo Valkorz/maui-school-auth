@@ -1,9 +1,11 @@
+using CommunityToolkit.Maui.Extensions;
 using MauiApp2.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Net.Http.Headers;
+using MauiApp2.Minipages;
 
 
 namespace MauiApp2.Pages {
@@ -14,25 +16,37 @@ namespace MauiApp2.Pages {
 
         public ControleAcad(UserControl usrControl)
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch(Exception ex)
+            {
+                App.Logger.WriteExceptionAsync(ex);
+            }
             _usrControl = usrControl;
         }
 
-        public void UpdatePageContents()
+        public async void UpdatePageContents()
         {
-            Rd.IsToggled = (SelectedUser.Permissions & User.UserPermissions.Read) == User.UserPermissions.Read;
-            Wr.IsToggled = (SelectedUser.Permissions & User.UserPermissions.Write) == User.UserPermissions.Write;
-            ModSelf.IsToggled = (SelectedUser.Permissions & User.UserPermissions.ModifySelf) == User.UserPermissions.ModifySelf;
-            ModOther.IsToggled = (SelectedUser.Permissions & User.UserPermissions.ModifyOther) == User.UserPermissions.ModifyOther;
-            IgnCoold.IsToggled = (SelectedUser.Permissions & User.UserPermissions.IgnoreCooldown) == User.UserPermissions.IgnoreCooldown;
-            Admin.IsToggled = (SelectedUser.Permissions & User.UserPermissions.Administrator) == User.UserPermissions.Administrator;
+            try
+            {
+                Rd.IsToggled = (SelectedUser.Permissions & User.UserPermissions.Read) == User.UserPermissions.Read;
+                Wr.IsToggled = (SelectedUser.Permissions & User.UserPermissions.Write) == User.UserPermissions.Write;
+                ModSelf.IsToggled = (SelectedUser.Permissions & User.UserPermissions.ModifySelf) == User.UserPermissions.ModifySelf;
+                ModOther.IsToggled = (SelectedUser.Permissions & User.UserPermissions.ModifyOther) == User.UserPermissions.ModifyOther;
+                IgnCoold.IsToggled = (SelectedUser.Permissions & User.UserPermissions.IgnoreCooldown) == User.UserPermissions.IgnoreCooldown;
+                Admin.IsToggled = (SelectedUser.Permissions & User.UserPermissions.Administrator) == User.UserPermissions.Administrator;
 
-            DoC.Date = SelectedUser.TimeOfCreation;
-            UsrName.Text = SelectedUser.Name;
-            Pass.Text = SelectedUser.GetPassword(string.Empty);
-            Email.Text = SelectedUser.Email;
-
-            Debug.WriteLine($"User email is: {SelectedUser.Email}");
+                DoC.Date = SelectedUser.TimeOfCreation;
+                UsrName.Text = SelectedUser.Name;
+                Pass.Text = SelectedUser.GetPassword(string.Empty);
+                Email.Text = SelectedUser.Email;
+            }
+            catch (Exception ex) 
+            {
+                await App.Logger.WriteExceptionAsync(ex);
+            }
         }
 
         public void OnToggled(object? sender, EventArgs e)
@@ -218,6 +232,19 @@ namespace MauiApp2.Pages {
 
             await DisplayAlert("Erro", "Ocorreu um problema ao atualizar o cadastro.", "OK");
             return;           
+        }
+
+        public async void OnCalendarOpen(object? sender, EventArgs e)
+        {
+#if !DEBUG
+            if (App.ActiveUser != null && !App.ActiveUser.Permissions.HasFlag(User.UserPermissions.Administrator))
+            {
+                return;
+            }
+#endif
+
+            var popup = new CalendarPopup(_usrControl);
+            await this.ShowPopupAsync(popup);
         }
     }
 }

@@ -9,12 +9,14 @@ using Microsoft.EntityFrameworkCore.Design;
 using System.Linq.Expressions;
 using System.Diagnostics;
 using MauiApp2.ClassManaging;
+using MauiApp2.Attributes;
 //using Java.Lang;
 //using Android.Service.Controls.Actions;
 
 namespace MauiApp2.Data
 {
     //The class that implements methods for controlling the database
+    [Preserve]
     public class UserControl(UserDbContext context)
     {
         public readonly UserDbContext _context = context;
@@ -22,7 +24,17 @@ namespace MauiApp2.Data
         //Gets users in the database as IEnumerable
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            try
+            {
+                await App.Logger.WriteLineAsync("Requested for users list.");
+                var usrList = await _context.Users.ToListAsync();
+                await App.Logger.WriteLineAsync($"Got list: {usrList}");
+                return usrList;
+            } catch(Exception ex)
+            {
+                await App.Logger.WriteExceptionAsync(ex);
+                return [];
+            }
         }
 
         public List<User> GetUsers()
@@ -33,12 +45,18 @@ namespace MauiApp2.Data
         //Find user existance by specific lambda condition
         public bool ContainsUserBy(Func<User,bool> predicate)
         {
-            return _context.Users.Any(predicate);
+            App.Logger.WriteLineAsync("Requested user lookup by predicate...");
+            var usr = _context.Users.Any(predicate);
+            App.Logger.WriteLineAsync($"User has been found? {usr}");
+            return usr;
         }
 
         public async Task<bool> ContainsUserByAsync(Expression<Func<User, bool>> predicate)
         {
-            return await _context.Users.AnyAsync(predicate);
+            await App.Logger.WriteLineAsync("Requested user lookup by predicate...");
+            var usr = await _context.Users.AnyAsync(predicate);
+            await App.Logger.WriteLineAsync($"User has been found? {usr}");
+            return usr;
         }
 
         //Returns NULL if user has not been found
@@ -46,10 +64,14 @@ namespace MauiApp2.Data
         {
             try
             {
-                return await _context.Users.SingleAsync(x => x.Id == targetId);
+                await App.Logger.WriteLineAsync($"Looking for user with ID: {targetId}...");
+                var usr = await _context.Users.SingleAsync(x => x.Id == targetId);
+                await App.Logger.WriteLineAsync($"Found user: {usr.Name}");
+                return usr;
             }
-            catch
+            catch (Exception ex) 
             {
+                await App.Logger.WriteExceptionAsync(ex);
                 return null;
             }
         }
@@ -57,8 +79,16 @@ namespace MauiApp2.Data
         //Adds user to database and returns a procedure status (sucess/failure)
         public async Task<int> AddUserAsync(User user)
         {
-            _context.Users.Add(user);
-            return await _context.SaveChangesAsync();
+            try
+            {
+                await App.Logger.WriteLineAsync($"Requested add user operation for: {user.Id}:{user.Name}");
+                _context.Users.Add(user);
+                return await _context.SaveChangesAsync();
+            } catch(Exception ex)
+            {
+                await App.Logger.WriteExceptionAsync(ex);
+                return -1;
+            }
         }
 
         //Pushes changes to an existing user
@@ -88,7 +118,6 @@ namespace MauiApp2.Data
         }
 
         // GRADING STUFF
-
         //Add grading compontent
         public async Task<int> AddComponentAsync(StudentGradeComponent component)
         {
@@ -137,9 +166,36 @@ namespace MauiApp2.Data
             {
                 return await _context.Components.SingleAsync(c => c.AvailableInfo.Any(i => i.Identification == identification));
             }
-            catch (InvalidOperationException)
+            catch (Exception ex)
             {
+                await App.Logger.WriteExceptionAsync(ex);
                 return null;
+            }
+        }
+
+        //Remove component 
+        public async Task<int> RemoveComponentAsync(string identification)
+        {
+            try
+            {
+                await App.Logger.WriteLineAsync($"Requesting for removal: {identification}");
+                var usr = await _context.Components.SingleAsync(x => x.Code == identification);
+                await App.Logger.WriteLineAsync($"Found usr: {usr}");
+                _context.Components.Remove(usr);
+                int status = await _context.SaveChangesAsync();
+
+                if (status == 0)
+                {
+                    await App.Logger.WriteLineAsync("Success.");
+                }
+                else await App.Logger.WriteLineAsync("Failure.");
+
+                return status;
+            }
+            catch (Exception ex) 
+            {
+                await App.Logger.WriteExceptionAsync(ex);
+                return -1;
             }
         }
     }

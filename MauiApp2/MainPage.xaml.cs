@@ -1,5 +1,4 @@
-﻿
-using MauiApp2.Data;
+﻿using MauiApp2.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -12,35 +11,53 @@ namespace MauiApp2
 
         public MainPage(UserControl usrControl)
         {
-            InitializeComponent();
-            Debug.WriteLine($"DB Path: {Path.Combine(FileSystem.AppDataDirectory, "Users.db3")}");
             _usrControl = usrControl;
+            try
+            {
+                InitializeComponent();
+
+                App.Logger?.WriteLineAsync("Entered main page");
+                App.Logger?.WriteLineAsync($"DB Path: {Path.Combine(FileSystem.AppDataDirectory, "Users.db3")}");
+            }
+            catch (Exception ex)
+            {
+                App.Logger?.WriteExceptionAsync(ex);
+            }
         }
 
         protected override async void OnAppearing()
         {
-            base.OnAppearing();
-
-            //Add admin user if not existing
-            if (! await _usrControl.ContainsUserByAsync(u => u.Id == 1))
+            try
             {
-                User admin = new
-                    (id: 0,
-                    name: "Admin",
-                    password: "123",
-                    defaultPermissions: User.UserPermissions.Administrator,
-                    email: "foo@gmail.com");
+                base.OnAppearing();
 
-                await _usrControl.AddUserAsync(admin);
+
+                //Add admin user if not existing
+                if (!await _usrControl.ContainsUserByAsync(u => u.Id == 1))
+                {
+                    User admin = new
+                        (id: 0,
+                        name: "Admin",
+                        password: "123",
+                        defaultPermissions: User.UserPermissions.Administrator,
+                        email: "foo@gmail.com");
+
+                    await _usrControl.AddUserAsync(admin);
+                }
+
+                //SetupTimer();
             }
-
-            SetupTimer();
+            catch (Exception ex)
+            {
+                if (App.Logger != null)
+                    await App.Logger.WriteExceptionAsync(ex);
+            }
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            if(_timer != null)
+            if (_timer != null)
             {
                 _timer.Stop();
                 _timer = null;
@@ -54,28 +71,35 @@ namespace MauiApp2
 
         private void SetupTimer()
         {
-            if (_timer != null && _timer.IsRunning)
+            try
             {
-                return;
-            }
-
-
-            _timer = Dispatcher.CreateTimer();
-            _timer.Interval = TimeSpan.FromSeconds(8);
-            _timer.Tick += (sender, e) =>
-            {
-                if (ImageCarousel.ItemsSource is not System.Collections.IList items || items.Count == 0)
-                    return;
-
-                int nextPosition = (ImageCarousel.Position + 1) % items.Count;
-
-                MainThread.BeginInvokeOnMainThread(() =>
+                if (_timer != null && _timer.IsRunning)
                 {
-                    ImageCarousel.Position = nextPosition;
-                    Debug.WriteLine($"new Position: {ImageCarousel.Position}");
-                });
-            };
-            _timer.Start();
+                    return;
+                }
+
+
+                _timer = Dispatcher.CreateTimer();
+                _timer.Interval = TimeSpan.FromSeconds(8);
+                _timer.Tick += (sender, e) =>
+                {
+                    if (ImageCarousel.ItemsSource is not System.Collections.IList items || items.Count == 0)
+                        return;
+
+                    int nextPosition = (ImageCarousel.Position + 1) % items.Count;
+
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        ImageCarousel.Position = nextPosition;
+                        Debug.WriteLine($"new Position: {ImageCarousel.Position}");
+                    });
+                };
+                _timer.Start();
+            }
+            catch (Exception ex)
+            {
+                App.Logger?.WriteExceptionAsync(ex);
+            }
         }
     }
 }

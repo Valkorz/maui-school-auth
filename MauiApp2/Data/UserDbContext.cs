@@ -13,5 +13,11 @@ namespace MauiApp2.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<StudentGradeComponent> Components { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<StudentGradeComponent>()
+                .OwnsMany(x => x.AvailableInfo);      
+        }
     }
 }

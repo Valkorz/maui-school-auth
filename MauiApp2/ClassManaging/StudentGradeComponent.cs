@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MauiApp2.ClassManaging
 {
@@ -16,18 +18,22 @@ namespace MauiApp2.ClassManaging
         Saturday,
         Sunday
     }
-    
+
     //Define a specific time of the week where the class takes place.
-    public struct ComponentApplicationInfo
+    public class ComponentApplicationInfo
     {
-        public string Identification { get; set; }
-        public string Classroom { get; set; }
+        [Key]
+        public int Id { get; set; }
+        public string Identification { get; set; } = string.Empty;
+        public string Classroom { get; set; } = string.Empty;
         public Weekdays Day { get; set; }
         public TimeSpan Period { get; set; }
     }
     
     public class StudentGradeComponent
     {
+        public int Id { get; set; }
+        public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public int Semester { get; set; }
@@ -43,20 +49,23 @@ namespace MauiApp2.ClassManaging
             Semester = semester;
 
             var rand = new Random(DateTime.Now.Second); //generate a random instance
+            string hexChars = "0123456789ABCDEF";
             byte[] randBytes = new byte[6];
             rand.NextBytes(randBytes);
 
+            for (int i = 0; i < randBytes.Length; i++)
+            {
+                Code += hexChars[randBytes[i] % hexChars.Length];
+            }
+
             // Add some default component application info
             AvailableInfo.Add(new ComponentApplicationInfo
-            { 
-                Identification = $"TIN00{randBytes}", //randomized indentifier
+            {
+                Identification = "TIN00" + Code, //randomized indentifier
                 Classroom = "C37",
                 Day = Weekdays.Monday,
                 Period = new TimeSpan(19, 0, 0)
-            });
-
-            //random stuff just for testing purposes. Should be removed later.
-            
+            });           
         }
     }
 }

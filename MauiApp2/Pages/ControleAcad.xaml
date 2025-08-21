@@ -2,94 +2,168 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp2.Pages.ControleAcad"
-             Title="ADMIN: Controle Acadêmico">
-    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, *" 
-          Padding="15" RowSpacing="15" ColumnSpacing="15">
+             Title="Controle Acadêmico">
+    
+    <ScrollView>
+        <Grid x:Name="MainGrid"
+              Padding="15"
+              RowSpacing="15"
+              ColumnSpacing="15">
 
-        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="WindowState">
+                    <!-- Telas estreitas (ex: celular na vertical) -->
+                    <VisualState x:Name="Narrow">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0"/>
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter TargetName="MainGrid" Property="ColumnDefinitions">
+                                <Setter.Value>
+                                    <ColumnDefinitionCollection>
+                                        <ColumnDefinition Width="*"/>
+                                    </ColumnDefinitionCollection>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="MainGrid" Property="RowDefinitions">
+                                <Setter.Value>
+                                    <RowDefinitionCollection>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </RowDefinitionCollection>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter TargetName="RightColumnBorder" Property="Grid.Row" Value="2"/>
+                            <Setter TargetName="RightColumnBorder" Property="Grid.Column" Value="0"/>
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <!-- Telas largas (ex: tablet, desktop) -->
+                    <VisualState x:Name="Wide">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="800"/>
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter TargetName="MainGrid" Property="ColumnDefinitions">
+                                <Setter.Value>
+                                    <ColumnDefinitionCollection>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </ColumnDefinitionCollection>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="MainGrid" Property="RowDefinitions">
+                                <Setter.Value>
+                                    <RowDefinitionCollection>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </RowDefinitionCollection>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter TargetName="RightColumnBorder" Property="Grid.Row" Value="1"/>
+                            <Setter TargetName="RightColumnBorder" Property="Grid.Column" Value="1"/>
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+
+            <!-- O cabeçalho agora ocupa a primeira linha e as duas colunas -->
+            <Border 
+                Grid.Row="0" 
+                Grid.Column="0" 
+                Grid.ColumnSpan="2"
                 Style="{StaticResource CardBorderStyle}">
+                <!-- Usando FlexLayout no cabeçalho para que ele quebre a primeira linha se necessário -->
 
-            <Grid ColumnDefinitions="Auto, *, Auto, *, Auto, *, Auto, *" VerticalOptions="Center" ColumnSpacing="10">
-                <Image Source="logo_facens.jpg" WidthRequest="80" HeightRequest="80" Grid.Column="0"/>
+                <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" AlignItems="Center">
+                    <Image Source="logo_facens.jpg" WidthRequest="64" HeightRequest="64" Margin="5"/>
+                    <HorizontalStackLayout Spacing="5" Margin="5">
+                        <Label Text="RA: " VerticalOptions="Center"/>
+                        <Entry x:Name="Reg" Placeholder="Digite o RA" Keyboard="Numeric" MinimumWidthRequest="100" Completed="OnCompletion"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5" Margin="5">
+                        <Label Text="Nome: " VerticalOptions="Center"/>
+                        <Label x:Name="Username" Text="Empty" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Spacing="5" Margin="5">
+                        <Label Text="Entrada: " VerticalOptions="Center"/>
+                        <Label x:Name="EntryDate" Text="00/00/0000" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                </FlexLayout>
+            </Border>
 
-                <Label Text="RA:" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="End"/>
-                <Entry x:Name="Reg" Placeholder="Digite o RA" Keyboard="Numeric" Grid.Column="2" MinimumWidthRequest="120" Completed="OnCompletion" Unfocused="OnCompletion"/>
-
-                <Label Text="Nome:" VerticalOptions="Center" Grid.Column="3" HorizontalOptions="End"/>
-                <Label x:Name="Username" Text="-" VerticalOptions="Center" Grid.Column="4"/>
-
-                <Label Text="Entrada:" VerticalOptions="Center" Grid.Column="5" HorizontalOptions="End"/>
-                <Label x:Name="EntryDate" Text="00/00/0000" VerticalOptions="Center" Grid.Column="6"/>
-
-            </Grid>
-        </Border>
-
-        <Border Grid.Row="1" Grid.Column="0"
+            <!-- Coluna esquerda (formulário)-->
+            <Border 
+                Grid.Row="1" 
+                Grid.Column="0"
                 Style="{StaticResource CardBorderStyle}">
-            <ScrollView MaximumHeightRequest="550" VerticalScrollBarVisibility="Always">
-                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="15" ColumnSpacing="25">
-                    <!-- Grid title -->
-                    <Label Grid.ColumnSpan="2" Grid.Row="0" Text="Cadastro" FontSize="Large" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                <Grid 
+                    ColumnDefinitions="*,*" 
+                    RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" 
+                    RowSpacing="15" 
+                    ColumnSpacing="15">
+                        <Label Grid.ColumnSpan="2" Grid.Row="0" Text="Cadastro" FontSize="Large" HorizontalTextAlignment="Center"/>
 
-                    <!-- Row 1  (Permissions) -->
-                    <Border Grid.Row="1" Grid.ColumnSpan="2"/>
-                    <Label Grid.Row="1" Grid.Column="0" Text="Permissões" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
-                    <Grid Grid.Row="1" Grid.Column="1" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="5" ColumnSpacing="5">
+                        <!-- Permissões -->
+                        <Label Grid.Row="1" Grid.Column="0" Text="Permissões" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="5">
+                            <HorizontalStackLayout>
+                                <Switch x:Name="Rd" Toggled="OnToggled"/>
+                                <Label Text="Gravar"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Switch x:Name="Wr" Toggled="OnToggled"/>
+                                <Label Text="Visualizar"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Switch x:Name="ModSelf" Toggled="OnToggled"/>
+                                <Label Text="Modificar dados"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Switch x:Name="ModOther" Toggled="OnToggled"/>
+                                <Label Text="Modificar outros"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Switch x:Name="IgnCoold" Toggled="OnToggled"/>
+                                <Label Text="Ignorar Espera"/>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout>
+                                <Switch x:Name="Admin" Toggled="OnToggled"/>
+                                <Label Text="Administrador"/>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
 
-                        <Label Grid.Row="0" Grid.Column="0" Text="Gravar" FontSize="Micro" VerticalTextAlignment="Center"/>
-                        <Switch x:Name="Rd" IsToggled="False" Grid.Row="0" Grid.Column="1" Toggled="OnToggled"/>
+                    <!-- Outros campos -->
+                    <Label Grid.Row="2" Grid.Column="0" Text="Data de Criação" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <DatePicker x:Name="DoC" Grid.Row="2" Grid.Column="1" DateSelected="OnDateChanged"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" Text="Visualizar" FontSize="Micro" VerticalTextAlignment="Center"/>
-                        <Switch x:Name="Wr" IsToggled="False" Grid.Row="1" Grid.Column="1" Toggled="OnToggled"/>
+                    <Label Grid.Row="3" Grid.Column="0" Text="Nome" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Entry x:Name="UsrName" Grid.Row="3" Grid.Column="1" Placeholder="ABCDEFG" MaxLength="8" Completed="OnNameChanged" Unfocused="OnNameChanged"/>
 
-                        <Label Grid.Row="2" Grid.Column="0" Text="Modificar dados" FontSize="Micro" VerticalTextAlignment="Center"/>
-                        <Switch x:Name="ModSelf" IsToggled="False" Grid.Row="2" Grid.Column="1" Toggled="OnToggled"/>
+                    <Label Grid.Row="4" Grid.Column="0" Text="Senha" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Entry x:Name="Pass" Grid.Row="4" Grid.Column="1" Placeholder="***********" MaxLength="8" Completed="OnPassChanged" Unfocused="OnPassChanged"/>
 
-                        <Label Grid.Row="3" Grid.Column="0" Text="Modificar outros" FontSize="Micro" VerticalTextAlignment="Center"/>
-                        <Switch x:Name="ModOther" IsToggled="False" Grid.Row="3" Grid.Column="1" Toggled="OnToggled"/>
-
-                        <Label Grid.Row="4" Grid.Column="0" Text="Ignorar Espera" FontSize="Micro" VerticalTextAlignment="Center"/>
-                        <Switch x:Name="IgnCoold" IsToggled="False" Grid.Row="4" Grid.Column="1" Toggled="OnToggled"/>
-
-                        <Label Grid.Row="5" Grid.Column="0" Text="Administrador" FontSize="Micro" VerticalTextAlignment="Center"/>
-                        <Switch x:Name="Admin" IsToggled="False" Grid.Row="5" Grid.Column="1" Toggled="OnToggled"/>
-                    </Grid>
-
-                    <!-- Row 2  (Date Of Creation) -->
-                    <Border Grid.Row="2" Grid.ColumnSpan="2"/>
-                    <Label Grid.Row="2" Grid.Column="0" Text="Data de Criação" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
-                    <DatePicker x:Name="DoC" Grid.Row="2" Grid.Column="1" DateSelected="OnDateChanged" HorizontalOptions="Center"/>
-
-                    <!-- Row 3  (Name) -->
-                    <Border Grid.Row="3" Grid.ColumnSpan="2"/>
-                    <Label Grid.Row="3" Grid.Column="0" Text="Nome" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
-                    <Entry x:Name="UsrName" Grid.Row="3" Grid.Column="1" Placeholder="ABCDEFG" HorizontalTextAlignment="Center" FontSize="20" MaxLength="8" Completed="OnNameChanged" Unfocused="OnNameChanged"/>
-
-                    <!-- Row 3  (Password) -->
-                    <Border Grid.Row="4" Grid.ColumnSpan="2"/>
-                    <Label Grid.Row="4" Grid.Column="0" Text="Senha" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
-                    <Entry x:Name="Pass" Grid.Row="4" Grid.Column="1" Placeholder="***********" HorizontalTextAlignment="Center" FontSize="20" MaxLength="8" Completed="OnPassChanged" Unfocused="OnPassChanged"/>
-                    
-                    <!-- Row 4  (Email) -->
-                    <Border Grid.Row="5" Grid.ColumnSpan="2"/>
-                    <Label Grid.Row="5" Grid.Column="0" Text="Email" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold"/>
-                    <Entry x:Name="Email" Grid.Row="5" Grid.Column="1" HorizontalTextAlignment="Center" FontSize="20" MaxLength="35" Completed="OnEmailChanged" Unfocused="OnEmailChanged"/>
-
+                    <Label Grid.Row="5" Grid.Column="0" Text="Email" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Entry x:Name="Email" Grid.Row="5" Grid.Column="1" MaxLength="35" Completed="OnEmailChanged" Unfocused="OnEmailChanged"/>
                 </Grid>
-            </ScrollView>
-        </Border>
+                </Border>
 
-        <Border Grid.Row="1" Grid.Column="1"
-                Style="{StaticResource CardBorderStyle}">
-            <VerticalStackLayout Spacing="10">
-                <Label Text="Coluna 2" FontSize="Large" HorizontalOptions="Center"/>
-                <Label Text="Conteúdo da segunda coluna..."/>
-                <Button Text="Salvar" Clicked="OnUpdateRequest"/>
-                <Button Text="Cancelar"/>
-            </VerticalStackLayout>
-        </Border>
+                <!-- Coluna da Direita -->
+                <Border x:Name="RightColumnBorder" Grid.Row="1" Grid.Column="1"
+                        Style="{StaticResource CardBorderStyle}">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Ações" FontSize="Large" HorizontalOptions="Center"/>
+                        <Button Text="Tabela de horários" Clicked="OnCalendarOpen"/>
+                        <Button Text="Salvar Alterações" Clicked="OnUpdateRequest"/>
+                        <Button Text="Cancelar"/>
+                    </VerticalStackLayout>
+                </Border>
 
-    </Grid>
-
+        </Grid>
+                
+    </ScrollView>
 
 </ContentPage>

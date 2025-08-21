@@ -17,6 +17,73 @@ namespace MauiApp2.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
 
+            modelBuilder.Entity("MauiApp2.ClassManaging.GradingComponentBinder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Classroom")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Identification")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeSpan>("Period")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GradingComponentBinder");
+                });
+
+            modelBuilder.Entity("MauiApp2.ClassManaging.StudentGradeComponent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Semester")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TargetCourses")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Components");
+                });
+
             modelBuilder.Entity("MauiApp2.Data.User", b =>
                 {
                     b.Property<int>("Id")
@@ -44,6 +111,56 @@ namespace MauiApp2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("MauiApp2.ClassManaging.GradingComponentBinder", b =>
+                {
+                    b.HasOne("MauiApp2.Data.User", null)
+                        .WithMany("GradingComponents")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("MauiApp2.ClassManaging.StudentGradeComponent", b =>
+                {
+                    b.OwnsMany("MauiApp2.ClassManaging.ComponentApplicationInfo", "AvailableInfo", b1 =>
+                        {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("Classroom")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("Day")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("Identification")
+                                .IsRequired()
+                                .HasColumnType("TEXT");
+
+                            b1.Property<TimeSpan>("Period")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<int>("StudentGradeComponentId")
+                                .HasColumnType("INTEGER");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("StudentGradeComponentId");
+
+                            b1.ToTable("ComponentApplicationInfo");
+
+                            b1.WithOwner()
+                                .HasForeignKey("StudentGradeComponentId");
+                        });
+
+                    b.Navigation("AvailableInfo");
+                });
+
+            modelBuilder.Entity("MauiApp2.Data.User", b =>
+                {
+                    b.Navigation("GradingComponents");
                 });
 #pragma warning restore 612, 618
         }

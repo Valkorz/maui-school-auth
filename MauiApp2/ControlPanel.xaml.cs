@@ -3,6 +3,7 @@ using System;
 using MauiApp2.Data;
 using Microsoft.EntityFrameworkCore;
 using MauiApp2.Pages;
+using MauiApp2.Resources.Animation;
 
 namespace MauiApp2
 {
@@ -31,6 +32,7 @@ namespace MauiApp2
 #if !DEBUG
             //Deny access if user is not administrator
             bool? permissionState = App.ActiveUser?.VerifyPermissions(User.UserPermissions.Administrator);
+            Debug.WriteLine($"Permission state: {permissionState}");
             if (permissionState.HasValue && !permissionState.Value)
             {
                 await DisplayAlert("Erro", "Acesso Negado.", "OK");
@@ -48,6 +50,29 @@ namespace MauiApp2
             {
                 App.ActiveUser = null;
                 await Shell.Current.GoToAsync("///MainPage");
+            }
+        }
+
+        public async void OnGradingClicked(object? sender, EventArgs e)
+        {
+#if !DEBUG
+            //Deny access if user is not administrator
+            bool? permissionState = App.ActiveUser?.VerifyPermissions(User.UserPermissions.Administrator);
+            if (permissionState.HasValue && !permissionState.Value)
+            {
+                await DisplayAlert("Erro", "Acesso Negado.", "OK");
+                return;
+            }
+#endif
+            await Shell.Current.GoToAsync(nameof(GradingManagement));
+        }
+
+        public void OnFocus(object? sender, EventArgs e)
+        {
+            if (sender is Button btn)
+            {   
+                InterfaceAnimator.AnimatePop(btn);
+                Debug.WriteLine("\nFocus\n");
             }
         }
     }

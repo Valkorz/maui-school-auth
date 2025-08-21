@@ -9,8 +9,17 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <Style x:Key="CardBorderStyle" TargetType="Border">
+                <Setter Property="Stroke" Value="Gray"/>
+                <Setter Property="StrokeThickness" Value="2"/>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"/>
+                <Setter Property="StrokeShape">
+                    <RoundRectangle CornerRadius="12"/>
+                </Setter>
+            </Style>
             <Style x:Key="ButtonStyle1" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#512BD4" />
+                <Setter Property="BackgroundColor" Value="#0099CC" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="CornerRadius" Value="12" />
                 <Setter Property="FontSize" Value="18" />
@@ -26,31 +35,36 @@
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
+            <Style x:Key="ButtonStyle3" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#FFFFFF"/>
+                <Setter Property="TextColor" Value="#000000"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="BorderColor" Value="Black"/>
+                <Setter Property="BorderWidth" Value="1"/>
+                <Setter Property="MinimumWidthRequest" Value="120"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
             <Style x:Key="LabelBox" TargetType="Border">
                 <Setter Property="Stroke" Value="#EBEBEA"/>
                 <Setter Property="StrokeThickness" Value="1"/>
                 <Setter Property="HorizontalOptions" Value="Center"/>
             </Style>
 
-            <!-- Global background color -->
             <Color x:Key="BackgroundColorLight">#FFFFFF</Color>
             <Color x:Key="BackgroundColorDark">#1E1E1E</Color>
 
-            <!-- Global foreground color -->
             <Color x:Key="TextColorLight">#222222</Color>
             <Color x:Key="TextColorDark">#FFFFFF</Color>
 
-            <!-- Content page global style -->
             <Style TargetType="ContentPage">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
             </Style>
 
-            <!-- Label global page -->
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
             </Style>
-            
-            <!-- Button global style -->
+
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
                 <Setter Property="FontSize" Value="16"/>
@@ -60,12 +74,13 @@
                 <Setter Property="FontSize" Value="16"/>
             </Style>
 
-            <!-- Shadows global style -->
             <Style TargetType="Shadow" >
                 <Setter Property="Brush" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
             </Style>
-            
-            
+
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

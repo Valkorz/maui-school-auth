@@ -13,11 +13,14 @@ public partial class Page2 : ContentPage
 	{
         InitializeComponent();
         _usrControl = usrControl;
+        App.Logger.WriteLineAsync("Loading log-in page...");
     }
 
     //Verify existence of user and authenticate if possible
     public async void OnSubmitClicked(object? sender, EventArgs e)
     {
+        await App.Logger.WriteLineAsync("Submit page 2 clicked");
+        
         int id_value        = Convert.ToInt32(entry_ID.Text);
         string pass_value   = entry_pass.Text;
 
@@ -47,7 +50,9 @@ public partial class Page2 : ContentPage
 
     public async void OnCompletion(object? sender, EventArgs e)
     {
-        if(sender is Entry entry)
+        await App.Logger.WriteLineAsync("OnCompletion Clicked");
+
+        if (sender is Entry entry)
         {
             if (entry.Text == null)
                 return;

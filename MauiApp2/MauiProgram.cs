@@ -3,6 +3,7 @@ using System;
 using MauiApp2.Data;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using CommunityToolkit.Maui;
 
 namespace MauiApp2
 {
@@ -14,26 +15,44 @@ namespace MauiApp2
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+            try
+            {
+                builder
+                    .UseMauiApp<App>()
+                    .UseMauiCommunityToolkit()
+                    .ConfigureFonts(fonts =>
+                    {
+                        fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                        fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    });
 
-            //Add db context class with builder
+                //Add db context class with builder
 
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, $"{DbFileName}.db3");
-            builder.Services.AddDbContext<UserDbContext>(options =>
-                options.UseSqlite($"Filename={dbPath}"));
-            builder.Services.AddScoped<UserControl>();  //Dependency injection for UserControl class (will fill every page constructor parameter)
-
+                string dbPath = Path.Combine(FileSystem.AppDataDirectory, $"{DbFileName}.db3");
+                builder.Services.AddDbContext<UserDbContext>(options =>
+                    options.UseSqlite($"Filename={dbPath}"));
+                builder.Services.AddScoped<UserControl>();  //Dependency injection for UserControl class (will fill every page constructor parameter)     
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+
+            }
+            catch (Exception ex)
+            {
+                App.Logger?.WriteExceptionAsync(ex);
+                throw;
+            }
+
+            var app = builder.Build();
+
+    
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<UserDbContext>();
+                dbContext.Database.Migrate();
+            }
+            return app;
         }
     }
 }

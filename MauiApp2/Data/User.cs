@@ -1,9 +1,11 @@
 ﻿
+using MauiApp2.ClassManaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static MauiApp2.ClassManaging.StudentGradeComponent;
 
 namespace MauiApp2.Data
 {
@@ -27,6 +29,7 @@ namespace MauiApp2.Data
         public string Password { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public UserPermissions Permissions { get; set; }
+        public List<GradingComponentBinder> GradingComponents { get; private set; } = []; 
 
         public User() { }
         public User(int id, string name, string password, UserPermissions defaultPermissions, string email)
@@ -112,6 +115,22 @@ namespace MauiApp2.Data
                 return false;
             }
 
+            return true;
+        }
+
+        //Adds grading component if compatible 
+        public bool AddGradingComponent(GradingComponentBinder gradeComponent)
+        {
+            //Check of name or ID exists
+            var ExistingComponentById = GradingComponents.Any(x => x.Code == gradeComponent.Code || x.Name == gradeComponent.Name);
+            if (ExistingComponentById)
+                return false;
+
+            var ExistingComponentByQuality = GradingComponents.Any(x => x.Day == gradeComponent.Day && x.Period == gradeComponent.Period);
+            if(ExistingComponentByQuality)
+                return false;
+
+            GradingComponents.Add(gradeComponent);
             return true;
         }
 
