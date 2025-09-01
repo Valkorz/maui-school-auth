@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp2.Pages.GradingManagement"
+             Title="GradingManagement">
+
+    <VerticalStackLayout>
+
+        <FlexLayout Wrap="Wrap" AlignItems="Center" JustifyContent="Start">
+            <Button Text="Add" Clicked="OnAddRequest"/>
+            <Button Text="Filtros" Clicked="OnFilterSetRequest"/>
+            <Label x:Name="ListaFiltros" Text="FILTRO: Cód.: {filter.GradeCode}, Nome: {filter.GradeName}, Semestre: {filter.Semester}" FontSize="Small" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </FlexLayout>    
+
+        <ScrollView>
+            <CollectionView x:Name="GradingList" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <Border Margin="10" Padding="10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10,10,10,10"></RoundRectangle>
+                                </Border.StrokeShape>
+
+                                <ScrollView Orientation="Horizontal">
+                                    <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" AlignItems="Center">
+                                        <VerticalStackLayout Spacing="5" Margin="5" FlexLayout.Grow="1">
+                                            <HorizontalStackLayout Spacing="5">
+                                                <Label Text="Código: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                                <Label Text="{Binding GradeCode}" HorizontalTextAlignment="Center"/>
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout Spacing="5">
+                                                <Label Text="Nome: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                                <Label x:Name="Name" Text="{Binding GradeName}" HorizontalTextAlignment="Center"/>
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout Spacing="5">
+                                                <Label Text="Semestre: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                                <Label Text="{Binding Semester}" HorizontalTextAlignment="Center"/>
+                                            </HorizontalStackLayout>
+                                            <HorizontalStackLayout Spacing="5">
+                                                <Label Text="Creditos: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                                <Label Text="{Binding Credits}" HorizontalTextAlignment="Center"/>
+                                            </HorizontalStackLayout>
+
+                                            <!-- Descrição -->
+                                            <Label Text="{Binding Description}" HorizontalTextAlignment="Center" FlexLayout.Grow="2" VerticalOptions="Center"/>
+
+                                            <!-- Botões -->
+                                            <VerticalStackLayout Margin="5" Spacing="5" FlexLayout.Grow="3">
+                                                <Button Text="Quadro de horários" FontAttributes="Bold" Clicked="OnSchedulingSelect"/>
+                                                <Button Text="Remover" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold" Clicked="OnRemoveRequest"/>
+                                            </VerticalStackLayout>
+                                        </VerticalStackLayout>
+                                    </FlexLayout>
+                                </ScrollView>
+                            </Border>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+
+
+    </VerticalStackLayout>
+
+
+
+</ContentPage>

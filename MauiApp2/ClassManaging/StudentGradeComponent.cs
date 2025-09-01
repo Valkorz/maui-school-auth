@@ -27,7 +27,8 @@ namespace MauiApp2.ClassManaging
         public string Identification { get; set; } = string.Empty;
         public string Classroom { get; set; } = string.Empty;
         public Weekdays Day { get; set; }
-        public TimeSpan Period { get; set; }
+        public TimeSpan PeriodStart { get; set; }
+        public TimeSpan PeriodEnd { get; set; }
     }
     
     public class StudentGradeComponent
@@ -58,14 +59,15 @@ namespace MauiApp2.ClassManaging
                 Code += hexChars[randBytes[i] % hexChars.Length];
             }
 
-            // Add some default component application info
-            AvailableInfo.Add(new ComponentApplicationInfo
-            {
-                Identification = "TIN00" + Code, //randomized indentifier
-                Classroom = "C37",
-                Day = Weekdays.Monday,
-                Period = new TimeSpan(19, 0, 0)
-            });           
+            //// Add some default component application info
+            //AvailableInfo.Add(new ComponentApplicationInfo
+            //{
+            //    Identification = "TIN00" + Code, //randomized indentifier
+            //    Classroom = "C37",
+            //    Day = Weekdays.Monday,
+            //    PeriodStart = new TimeSpan(19, 0, 0),
+            //    PeriodEnd = new TimeSpan(20, 40, 0)
+            //});           
         }
     }
 }

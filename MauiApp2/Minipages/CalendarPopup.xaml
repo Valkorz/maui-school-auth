@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="MauiApp2.Minipages.CalendarPopup" 
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}">
+    <!-- Opcional: Garante que não haja cor de fundo inesperada no popup em si -->
+
+    <toolkit:Popup.Resources>
+        <!-- Seus estilos existentes -->
+        <Style x:Key="CalendarCellStyle" TargetType="Border">
+            <Setter Property="Stroke" Value="LightGray" />
+            <Setter Property="StrokeThickness" Value="1" />
+        </Style>
+        <Style x:Key="CalendarCellButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>
+        <Style x:Key="CardHeadingStyle" TargetType="BoxView">
+            <Setter Property="BackgroundColor" Value="#0099CC"/>
+            <Setter Property="MinimumHeightRequest" Value="25"/>
+        </Style>
+    </toolkit:Popup.Resources>
+
+    <!-- 
+    ================================================================
+    CORREÇÃO: O Grid principal agora tem um BackgroundColor que reage
+    ao tema do aplicativo (AppThemeBinding).
+    Isso garante que o fundo do popup fique escuro no modo escuro.
+    ================================================================
+    -->
+    <Grid>
+        <ScrollView x:Name="Calendar" Orientation="Both" IsVisible="True">
+            <VerticalStackLayout>
+                <Grid ColumnSpacing="3" RowSpacing="3" Margin="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100" />
+                        <!-- Cabeçalho Horários -->
+                        <ColumnDefinition Width="150" />
+                        <!-- Segunda -->
+                        <ColumnDefinition Width="150" />
+                        <!-- Terça -->
+                        <ColumnDefinition Width="150" />
+                        <!-- Quarta -->
+                        <ColumnDefinition Width="150" />
+                        <!-- Quinta -->
+                        <ColumnDefinition Width="150" />
+                        <!-- Sexta -->
+                        <ColumnDefinition Width="150" />
+                        <!-- Sábado -->
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <!-- Cabeçalho Dias -->
+                        <RowDefinition Height="120" />
+                        <!-- Horário 1 -->
+                        <RowDefinition Height="120" />
+                        <!-- Horário 2 -->
+                        <RowDefinition Height="120" />
+                        <!-- Horário 3 -->
+                        <RowDefinition Height="120" />
+                        <!-- Horário 4 -->
+                    </Grid.RowDefinitions>
+
+                    <!-- Cabeçalho Horizontal (Dias da Semana) -->
+                    <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CalendarCellStyle}">
+                        <Label Text="Segunda" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="2" Style="{StaticResource CalendarCellStyle}">
+                        <Label Text="Terça" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="3" Style="{StaticResource CalendarCellStyle}">
+                        <Label Text="Quarta" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="4" Style="{StaticResource CalendarCellStyle}">
+                        <Label Text="Quinta" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="5" Style="{StaticResource CalendarCellStyle}">
+                        <Label Text="Sexta" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="0" Grid.Column="6" Style="{StaticResource CalendarCellStyle}">
+                        <Label Text="Sábado" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+
+                    <!-- Cabeçalho Vertical (Horários) -->
+                    <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CalendarCellStyle}">
+                        <Label Text="19:00" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="0" Style="{StaticResource CalendarCellStyle}">
+                        <Label Text="19:50" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="0" Style="{StaticResource CalendarCellStyle}">
+                        <Label Text="21:00" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="0" Style="{StaticResource CalendarCellStyle}">
+                        <Label Text="21:50" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Border>
+
+                    <!-- Células ocupáveis -->
+
+                    <!-- Linha Horário 1 -->
+                    <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:00_Segunda" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected" Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="2" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:00_Terca" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"   Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="3" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:00_Quarta" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="4" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:00_Quinta" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="5" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:00_Sexta" HorizontalOptions="Fill" VerticalOptions="Fill"  Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="6" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:00_Sabado" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+
+                    <!-- Linha Horário 2 -->
+                    <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:50_Segunda" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected" Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="2" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:50_Terca" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"   Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="3" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:50_Quarta" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="4" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:50_Quinta" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="5" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:50_Sexta" HorizontalOptions="Fill" VerticalOptions="Fill"  Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="6" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="19:50_Sabado" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+
+                    <!-- Linha Horário 3 -->
+                    <Border Grid.Row="3" Grid.Column="1" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:00_Segunda" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected" Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="2" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:00_Terca" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"   Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="3" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:00_Quarta" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="4" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:00_Quinta" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="5" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:00_Sexta" HorizontalOptions="Fill" VerticalOptions="Fill"  Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="6" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:00_Sabado" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+
+                    <!-- Linha Horário 4 -->
+                    <Border Grid.Row="4" Grid.Column="1" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:50_Segunda" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected" Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="2" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:50_Terca" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"   Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="3" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:50_Quarta" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="4" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:50_Quinta" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="5" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:50_Sexta" HorizontalOptions="Fill" VerticalOptions="Fill"  Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="6" Style="{StaticResource CalendarCellStyle}">
+                        <Button AutomationId="21:50_Sabado" HorizontalOptions="Fill" VerticalOptions="Fill" Text="" Clicked="OnPeriodSelected"  Style="{StaticResource CalendarCellButtonStyle}" />
+                    </Border>
+
+                </Grid>
+                <HorizontalStackLayout>
+                    <Button Text="Sair" Style="{StaticResource ButtonStyle1}" Clicked="OnExitClicked" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <FlexLayout x:Name="ScheduleListView" IsVisible="False" AlignItems="Center" JustifyContent="Center" Direction="Column">
+            <ScrollView Orientation="Both">
+                <CollectionView x:Name="SchedulingList">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <ContentView>
+                                <Border Margin="5">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10,10,10,10"></RoundRectangle>
+                                    </Border.StrokeShape>
+
+                                    <Grid RowDefinitions="Auto, *" RowSpacing="5">
+                                        <BoxView Style="{StaticResource CardHeadingStyle}" Grid.Row="0"/>
+                                        <HorizontalStackLayout Spacing="5" Grid.Row="0" Margin="5">
+                                            <Label Text="{Binding Identification}" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="White"/>
+                                        </HorizontalStackLayout>
+
+                                        <!-- Conteúdo -->
+                                        <VerticalStackLayout Spacing="3" Grid.Row="1" >
+                                            <FlexLayout Wrap="Wrap" AlignItems="Center" JustifyContent="SpaceBetween" Margin="10">
+                                                <HorizontalStackLayout Spacing="3">
+                                                    <Label Text="Componente: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                                    <Label Text="{Binding GradeName}" HorizontalTextAlignment="Center"/>
+                                                </HorizontalStackLayout>
+                                                <HorizontalStackLayout Spacing="3">
+                                                    <Label Text="Turma: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                                    <Label Text="{Binding Classroom}" HorizontalTextAlignment="Center"/>
+                                                </HorizontalStackLayout>
+                                                <HorizontalStackLayout Spacing="3">
+                                                    <Label Text="Dia: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                                    <Label Text="{Binding Day}" HorizontalTextAlignment="Center"/>
+                                                </HorizontalStackLayout>
+                                                <HorizontalStackLayout Spacing="3">
+                                                    <Label Text="Horário: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                                    <Label Text="{Binding PeriodStart}" HorizontalTextAlignment="Center"/>
+                                                </HorizontalStackLayout>
+
+                                            </FlexLayout>
+                                            <Button Text="Selecionar" Style="{StaticResource ButtonStyle1}" Clicked="OnSelectClicked"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </ContentView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+            <Button Text="Cancelar" Style="{StaticResource ButtonStyle1}" Clicked="OnCancelClicked"/>
+        </FlexLayout>
+    </Grid>
+</toolkit:Popup>

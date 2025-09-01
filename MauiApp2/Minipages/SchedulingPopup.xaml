@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="MauiApp2.Minipages.SchedulingPopup"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}">
+
+    <Grid>
+        <!-- Segmento 1: lista de horários disponíveis -->
+        <FlexLayout x:Name="ScheduleListView" IsVisible="True" Wrap="Wrap" AlignItems="Center" JustifyContent="Center">
+            <ScrollView Orientation="Both">
+                <CollectionView x:Name="SchedulingList" ItemsSource="{Binding Grades}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <Border Margin="10" Padding="10">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10,10,10,10"></RoundRectangle>
+                                </Border.StrokeShape>
+
+                                <FlexLayout Wrap="Wrap" AlignItems="Center" JustifyContent="Center">
+                                    <HorizontalStackLayout>
+                                        <Label Text="Identificação: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Identification}" HorizontalTextAlignment="Center"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Turma: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Classroom}" HorizontalTextAlignment="Center"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Dia: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Day}" HorizontalTextAlignment="Center"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout>
+                                        <Label Text="Horário: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                        <Label Text="{Binding PeriodStart}" HorizontalTextAlignment="Center"/>
+                                    </HorizontalStackLayout>
+                                        <Button Text="Remover" Grid.Row="1"  Grid.Column="2" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold" Clicked="OnRemoveRequest"/>
+                                </FlexLayout>
+                            </Border>
+                        </ContentView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+            <HorizontalStackLayout>
+                <Button Text="Adicionar" Clicked="OnScheduleClicked"/>
+                <Button Text="Sair" Clicked="OnExitClicked"/>
+            </HorizontalStackLayout>
+        </FlexLayout>
+
+        <!-- Segmento 2: Edição de horário-->
+
+        <FlexLayout x:Name="ScheduleEditView" IsVisible="False" Wrap="Wrap" AlignItems="Center" JustifyContent="Center">
+            <ScrollView Orientation="Both">
+                <Grid ColumnDefinitions="*, Auto, Auto, Auto" RowDefinitions="*,*,*,*" RowSpacing="5" ColumnSpacing="10" Padding="5">
+                    <!-- IDENTIFICAÇÃO -->
+                    <Label Grid.Column="0" Grid.Row="0" Text="Cód. Identificação: " HorizontalTextAlignment="Start" FontAttributes="Bold"/>
+                    <Entry Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3" Placeholder="000000" HorizontalTextAlignment="Center" TextChanged="OnTextChangeVerify" Completed="OnTextConfirm" Unfocused="OnTextConfirm"/>
+                    
+                    <!-- TURMA -->
+                    <Label Grid.Column="0" Grid.Row="1" Text="Turma: " HorizontalTextAlignment="Start" FontAttributes="Bold"/>
+                    <Picker Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" x:Name="ClassroomEntry" SelectedIndexChanged="OnClassConfirm"/>
+                    
+                    <!-- DIA DA SEMANA-->
+                    <Label Grid.Column="0" Grid.Row="2" Text="Dia: " HorizontalTextAlignment="Start" FontAttributes="Bold"/>
+                    <Picker Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" x:Name="WeekdayEntry" SelectedIndexChanged="OnWeekdayConfirm"/>
+                    
+                    <!-- PERIODO -->
+                    <Label Grid.Column="0" Grid.Row="3" Text="Período: " HorizontalTextAlignment="Start" FontAttributes="Bold"/>
+                    <Picker Grid.Column="1" Grid.Row="3" x:Name="PeriodStartEntry" SelectedIndexChanged="OnPStartConfirm"/>
+                    <Label Grid.Column="2" Grid.Row="3" Text=" – " HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                    <Picker Grid.Column="3" Grid.Row="3" x:Name="PeriodEndEntry" SelectedIndexChanged="OnPEndConfirm"/>
+                </Grid>
+            </ScrollView>
+            <HorizontalStackLayout>
+                <Button Text="Confirmar" Clicked="OnConfirmClicked"/>
+                <Button Text="Cancelar" Clicked="OnCancelClicked"/>
+            </HorizontalStackLayout>
+        </FlexLayout>
+    </Grid>
+</toolkit:Popup>

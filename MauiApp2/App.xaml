@@ -9,7 +9,7 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
             <Style x:Key="CardBorderStyle" TargetType="Border">
                 <Setter Property="Stroke" Value="Gray"/>
                 <Setter Property="StrokeThickness" Value="2"/>
@@ -24,6 +24,15 @@
                 <Setter Property="CornerRadius" Value="12" />
                 <Setter Property="FontSize" Value="18" />
                 <Setter Property="MinimumWidthRequest" Value="100" />
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style x:Key="ButtonStyle1Inactive" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#56728D" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="MinimumWidthRequest" Value="100" />
+                <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
             <Style x:Key="ButtonStyle2" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#FFFFFF"/>
@@ -57,6 +66,25 @@
             <Color x:Key="TextColorLight">#222222</Color>
             <Color x:Key="TextColorDark">#FFFFFF</Color>
 
+            <!-- 
+            ================================================================
+            CORREÇÃO: Os dois estilos globais para Button foram unificados em um só.
+            Isso resolve a exceção ArgumentException.
+            ================================================================
+            -->
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#333333}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}" />
+                <Setter Property="BorderColor" Value="{AppThemeBinding Light=#CCCCCC, Dark=#555555}" />
+                <Setter Property="BorderWidth" Value="1" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="14,10" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="MinimumWidthRequest" Value="120"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+
             <Style TargetType="ContentPage">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
             </Style>
@@ -65,14 +93,7 @@
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
             </Style>
 
-            <Style TargetType="Button">
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
-                <Setter Property="FontSize" Value="16"/>
-                <Setter Property="Padding" Value="10,5"/>
-                <Setter Property="MinimumWidthRequest" Value="120"/>
-                <Setter Property="VerticalOptions" Value="Center"/>
-                <Setter Property="FontSize" Value="16"/>
-            </Style>
+            <!-- O segundo estilo global para Button foi removido daqui -->
 
             <Style TargetType="Shadow" >
                 <Setter Property="Brush" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />

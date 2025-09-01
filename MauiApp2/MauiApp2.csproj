@@ -113,6 +113,9 @@
 	  <MauiXaml Update="Minipages\SchedulingPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Minipages\UserListPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Page2.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

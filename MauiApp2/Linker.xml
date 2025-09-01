@@ -1,0 +1,14 @@
+﻿<linker>
+	<assembly fullname="MauiApp2">
+		<type fullname="MauiApp2.MainPage" preserve="all"/>
+		<type fullname="MauiApp2.AppShell" preserve="all"/>
+		<type fullname="MauiApp2.Pages.GradingManagement" preserve="all"/>
+		<type fullname="MauiApp2.Minipages.GradingPopup" preserve="all"/>
+		<type fullname="MauiApp2.Minipages.FiltersPopup" preserve="all"/>
+		<type fullname="MauiApp2.Minipages.SchedulingPopup" preserve="all"/>
+		<!-- Adicione todos os tipos de páginas, popups, viewmodels, etc. -->
+	</assembly>
+	<assembly fullname="Microsoft.EntityFrameworkCore">
+		<type fullname="*" preserve="all"/>
+	</assembly>
+</linker>

@@ -1,0 +1,13 @@
+﻿TODO:
+
+ControlPanel.xaml:
+
+	-> Adicionar responsividade
+
+ControleAcad.xaml
+	
+	-> Adicionar tela de controle de horários
+
+ControleAcad.xaml.cs
+
+	-> Adicionar evento para botão de controle de horários (troca de página)

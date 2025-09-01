@@ -1,0 +1,7 @@
+[ 11:15:56.7386628 ]: ############# --              LOGGING STARTED          -- ##################
+[ 11:15:56.7550851 ]: Created logging file at: /storage/emulated/0/Documents/Maui_Logs/ExecutionLog_2025-08-11_11.15.56.txt
+[ 11:15:57.3357446 ]: Entered main page
+[ 11:15:57.3396978 ]: DB Path: /data/user/0/com.companyname.mauiapp2/files/Users.db3
+############# -- EXCEPTION AT 11:15:58.8265320-- ################
+SQLite Error 1: 'no such table: Users'.
+############################################################################

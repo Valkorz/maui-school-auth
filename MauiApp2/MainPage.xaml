@@ -8,19 +8,29 @@
     <ContentPage.BindingContext>
         <vm:MainViewModel />
     </ContentPage.BindingContext>
-    
-    <VerticalStackLayout>
-        <FlexLayout Wrap="Wrap" JustifyContent="Center" AlignItems="Center">
-            <Image Source="logo_facens.jpg" Aspect="AspectFit" HeightRequest="96"/>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <FlexLayout Grid.Row="0" Wrap="Wrap" JustifyContent="Center" AlignItems="Center">
+            <Image Source="logo_facens.png" Aspect="AspectFit" HeightRequest="96"/>
             <Button x:Name="Login" Text="LOGIN" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" />
         </FlexLayout>
-        <CarouselView x:Name="ImageCarousel" ItemsSource="{Binding ImageSources}">
+
+        <CarouselView Grid.Row="1" x:Name="ImageCarousel" ItemsSource="{Binding ImageSources}"
+                      HorizontalOptions="Fill" VerticalOptions="Fill">
             <CarouselView.ItemTemplate>
                 <DataTemplate>
-                    <Image Source="{Binding ImageSource}" Aspect="AspectFill" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                    <Image Source="{Binding ImageSource}" 
+                           Aspect="AspectFill" 
+                           HorizontalOptions="Fill" 
+                           VerticalOptions="Fill"/>
                 </DataTemplate>
             </CarouselView.ItemTemplate>
         </CarouselView>
-    </VerticalStackLayout>
+    </Grid>
 
 </ContentPage>

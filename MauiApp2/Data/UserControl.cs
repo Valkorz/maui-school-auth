@@ -95,26 +95,23 @@ namespace MauiApp2.Data
         public async Task<int> PushUserAsync(User user)
         {
             User target;
-
             try
             {
                 target = await _context.Users.SingleAsync(u => u.Id == user.Id);
+                //Modify properties
+                target.Password = user.Password;
+                target.Name = user.Name;
+                target.TimeOfCreation = user.TimeOfCreation;
+                target.Permissions = user.Permissions;
+                target.Email = user.Email;
+                target.GradingComponents = user.GradingComponents;
+
+                return await _context.SaveChangesAsync();
             }
             catch (InvalidOperationException)
             {
                 return await AddUserAsync(user);
-            }
-
-            //Modify properties
-            target.Password = user.Password;
-            target.Name = user.Name;
-            target.TimeOfCreation = user.TimeOfCreation;
-            target.Permissions = user.Permissions;
-            target.Email = user.Email;
-            Debug.WriteLine($"\nemail : {target.Email}\r\n");
-
-
-            return await _context.SaveChangesAsync();
+            }       
         }
 
         // GRADING STUFF
@@ -154,8 +151,12 @@ namespace MauiApp2.Data
         //Add new component application info
         public async Task<int> AddComponentApplicationInfoAsync(ComponentApplicationInfo info, string componentName)
         {
-            var component = await _context.Components.SingleAsync(c => c.Name == componentName);
-            component.AvailableInfo.Add(info);
+            var component = await _context.Components.FirstOrDefaultAsync(c => c.Name == componentName);
+            if(component != null)
+            {
+                component.AvailableInfo.Add(info);
+                await App.Logger.WriteLineAsync($"Added {info} to {component}. Count: {component.AvailableInfo.Count}");
+            }
             return await _context.SaveChangesAsync();
         }
 
@@ -164,7 +165,7 @@ namespace MauiApp2.Data
         {
             try
             {
-                return await _context.Components.SingleAsync(c => c.AvailableInfo.Any(i => i.Identification == identification));
+                return await _context.Components.SingleAsync(c => c.Code == identification);
             }
             catch (Exception ex)
             {

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="MauiApp2.Minipages.UserListPopup"
+    BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}">
+ 
+    <toolkit:Popup.Resources>
+        <Style x:Key="CardHeadingStyle" TargetType="BoxView">
+            <Setter Property="BackgroundColor" Value="#0099CC"/>
+            <Setter Property="MinimumHeightRequest" Value="25"/>
+        </Style>
+    </toolkit:Popup.Resources>
+
+    <FlexLayout Wrap="Wrap" JustifyContent="Center" AlignItems="Center" BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}">
+        <!-- Cabeçalho -->
+        <Grid RowDefinitions="Auto,*">
+            <HorizontalStackLayout Grid.Row="0">
+                <Label Text="Lista de Usuários" FontSize="Medium" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Grid.Row="1">
+                <Button Text="Filtro" Style="{StaticResource ButtonStyle1}"/>
+            </HorizontalStackLayout>
+        </Grid>
+
+        <!-- Lista -->
+        <CollectionView x:Name="UserList">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView>
+                        <Border Margin="10" MaximumWidthRequest="380">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10,10,10,10"></RoundRectangle>
+                            </Border.StrokeShape>
+
+                            <Grid RowDefinitions="Auto, *" RowSpacing="5">
+                                <BoxView Style="{StaticResource CardHeadingStyle}"/>
+                                
+                                <!-- Cabeçalho do cartão -->
+                                <HorizontalStackLayout Padding="10" Spacing="5">
+                                    <Label Text="{Binding Name}" TextColor="white" FontAttributes="Bold"/>
+                                    <Label Text=" |  " TextColor="white" FontAttributes="Bold"/>
+                                    <Label Text="{Binding Id}" TextColor="white" FontAttributes="Bold"/>
+                                </HorizontalStackLayout>
+
+                                <FlexLayout Direction="Column" JustifyContent="Center" AlignItems="Center" Grid.Row="1" Margin="5" Padding="5">
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label Text="Email: "  FontAttributes="Bold"/>
+                                        <Label Text="{Binding Email}"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label Text="Data: "  FontAttributes="Bold"/>
+                                        <Label Text="{Binding TimeOfCreation}"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Label Text="Nível: "  FontAttributes="Bold"/>
+                                        <Label Text="{Binding Permissions}"/>
+                                    </HorizontalStackLayout>
+                                </FlexLayout>
+                            </Grid>
+                        </Border>
+                    </ContentView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </FlexLayout>
+    
+    
+    
+    
+</toolkit:Popup>

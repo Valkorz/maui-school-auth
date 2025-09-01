@@ -34,15 +34,14 @@ namespace MauiApp2.Migrations
                     b.Property<int>("Day")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Identification")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeSpan>("Period")
+                    b.Property<TimeSpan>("PeriodEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeSpan>("PeriodStart")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("UserId")
@@ -139,7 +138,10 @@ namespace MauiApp2.Migrations
                                 .IsRequired()
                                 .HasColumnType("TEXT");
 
-                            b1.Property<TimeSpan>("Period")
+                            b1.Property<TimeSpan>("PeriodEnd")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<TimeSpan>("PeriodStart")
                                 .HasColumnType("TEXT");
 
                             b1.Property<int>("StudentGradeComponentId")

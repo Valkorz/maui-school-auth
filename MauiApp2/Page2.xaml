@@ -29,7 +29,7 @@
             Spacing="10"
             Grid.Row="0">
                 <Image
-                Source="logo_facens.jpg"
+                Source="logo_facens.png"
                 Aspect="AspectFit"
                 WidthRequest="128"
                 HeightRequest="128"

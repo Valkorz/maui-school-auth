@@ -1,5 +1,6 @@
 ﻿
 using MauiApp2.ClassManaging;
+using Microsoft.Maui.Layouts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,7 @@ namespace MauiApp2.Data
         public string Password { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public UserPermissions Permissions { get; set; }
-        public List<GradingComponentBinder> GradingComponents { get; private set; } = []; 
+        public List<GradingComponentBinder> GradingComponents { get; set; } = []; 
 
         public User() { }
         public User(int id, string name, string password, UserPermissions defaultPermissions, string email)
@@ -53,7 +54,8 @@ namespace MauiApp2.Data
                 Password = this.Password,
                 Permissions = this.Permissions,
                 TimeOfCreation = TimeOfCreation,
-                Email = this.Email
+                Email = this.Email,
+                GradingComponents = this.GradingComponents
             };
             return user;
         }
@@ -119,19 +121,50 @@ namespace MauiApp2.Data
         }
 
         //Adds grading component if compatible 
-        public bool AddGradingComponent(GradingComponentBinder gradeComponent)
+        public bool AddGradingComponent(GradingComponentBinder gradeComponent, bool replace = false)
         {
             //Check of name or ID exists
-            var ExistingComponentById = GradingComponents.Any(x => x.Code == gradeComponent.Code || x.Name == gradeComponent.Name);
-            if (ExistingComponentById)
+            var ExistingComponentById = GradingComponents.FirstOrDefault(x => x.Code == gradeComponent.Code || x.Name == gradeComponent.Name);
+            if (ExistingComponentById != null && !replace)
                 return false;
 
-            var ExistingComponentByQuality = GradingComponents.Any(x => x.Day == gradeComponent.Day && x.Period == gradeComponent.Period);
-            if(ExistingComponentByQuality)
+            else if(ExistingComponentById != null && replace)
+            {
+                GradingComponents.Remove(ExistingComponentById);
+                GradingComponents.Add(gradeComponent);
+                return true;
+            }
+
+            var ExistingComponentByQuality = GradingComponents.FirstOrDefault(x => x.Day == gradeComponent.Day && x.PeriodStart == gradeComponent.PeriodStart);
+            if (ExistingComponentByQuality != null && !replace)
                 return false;
+
+            else if(ExistingComponentByQuality != null && replace)
+            {
+                GradingComponents.Remove(ExistingComponentByQuality);
+                GradingComponents.Add(gradeComponent);
+                return true;
+            }
 
             GradingComponents.Add(gradeComponent);
             return true;
+        }
+
+        //Removes a grading component (if found)
+        public bool RemoveGradingComponent(string code)
+        {
+            try
+            {
+                var component = GradingComponents.FirstOrDefault(x => x.Code == code);
+                if(component != null)
+                    GradingComponents.Remove(component);
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                App.Logger.WriteExceptionAsync(ex);
+                return false;
+            }
         }
 
     }

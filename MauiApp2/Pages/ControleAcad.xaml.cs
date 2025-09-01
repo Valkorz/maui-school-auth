@@ -25,6 +25,8 @@ namespace MauiApp2.Pages {
                 App.Logger.WriteExceptionAsync(ex);
             }
             _usrControl = usrControl;
+
+            UpdateModifyState(false);
         }
 
         public async void UpdatePageContents()
@@ -193,6 +195,7 @@ namespace MauiApp2.Pages {
                     EntryDate.Text = "00/00/0000";
                     Username.Text = "-";
                     SelectedUser = new User();
+                    UpdatePageContents();
                 }
                 else
                 {
@@ -201,6 +204,7 @@ namespace MauiApp2.Pages {
                     SelectedUser = usr.Clone();
                     UpdatePageContents();
                 }
+                UpdateModifyState(true);
             }
         }
 
@@ -213,25 +217,31 @@ namespace MauiApp2.Pages {
             }
 #endif
 
-            if (SelectedUser == null)
+            try
             {
-                await DisplayAlert("Erro", "Usuário nulo", "OK");
+                if (SelectedUser == null)
+                {
+                    await DisplayAlert("Erro", "Usuário nulo", "OK");
+                    return;
+                }
+
+                SelectedUser.Id = Convert.ToInt32(Reg.Text);
+                int result = await _usrControl.PushUserAsync(SelectedUser);
+
+                Debug.WriteLine($"\nResult: {result}\r\n");
+
+                if (result == 0)
+                {
+                    await DisplayAlert("Sucesso", "Cadastro atualizado com sucesso!", "OK");
+                    return;
+                }
+
+                await DisplayAlert("Erro", "Ocorreu um problema ao atualizar o cadastro.", "OK");
                 return;
-            }
-
-            SelectedUser.Id = Convert.ToInt32(Reg.Text);
-            int result = await _usrControl.PushUserAsync(SelectedUser);
-
-            Debug.WriteLine($"\nResult: {result}\r\n");
-
-            if (result == 0)
+            } catch(Exception ex)
             {
-                await DisplayAlert("Sucesso", "Cadastro atualizado com sucesso!", "OK");
-                return;
+                await App.Logger.WriteExceptionAsync(ex);
             }
-
-            await DisplayAlert("Erro", "Ocorreu um problema ao atualizar o cadastro.", "OK");
-            return;           
         }
 
         public async void OnCalendarOpen(object? sender, EventArgs e)
@@ -243,9 +253,75 @@ namespace MauiApp2.Pages {
             }
 #endif
 
-            var popup = new CalendarPopup(_usrControl);
+            var popup = new CalendarPopup(_usrControl, SelectedUser);
             await this.ShowPopupAsync(popup);
         }
+
+        private void OnCancelRequest(object? sender, EventArgs e)
+        {
+            UpdateModifyState(false);
+        }
+
+        private async void OnUserListRequest(object? sender, EventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                var popup = new UserListPopup(_usrControl);
+                await this.ShowPopupAsync(popup);
+            }
+        }
+
+        private void UpdateModifyState(bool state)
+        {
+
+            if (Application.Current == null)
+                return;
+            
+            Style? btn_StyleEnabled = null, btn_StyleDisabled = null;
+
+            if (Application.Current.Resources.TryGetValue("ButtonStyle1", out var enabledStyle))
+            {
+                btn_StyleEnabled = (Style)enabledStyle;
+            }
+            if (Application.Current.Resources.TryGetValue("ButtonStyle1Inactive", out var DisabledStyle))
+            {
+                btn_StyleDisabled = (Style)DisabledStyle;
+            }
+
+            if (btn_StyleEnabled == null || btn_StyleDisabled == null)
+                return;
+
+            if (state)
+            {
+                Save.Style = btn_StyleEnabled;
+                Save.IsEnabled = true;
+
+                Delete.Style = btn_StyleEnabled;
+                Delete.IsEnabled = true;
+
+                Calendar.Style = btn_StyleEnabled;
+                Calendar.IsEnabled = true;
+
+                ModifyContentsSection.IsVisible = true;
+
+            }
+            else
+            {
+                Save.Style = btn_StyleDisabled;
+                Save.IsEnabled = false;
+
+                Delete.Style = btn_StyleDisabled;
+                Delete.IsEnabled = false;
+
+                Calendar.Style = btn_StyleDisabled;
+                Calendar.IsEnabled = false;
+
+                ModifyContentsSection.IsVisible = false;
+
+            }
+        }
+
+        
     }
 }
 
