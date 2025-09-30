@@ -61,27 +61,27 @@
                             <VerticalStackLayout Spacing="5">
                                 <Label Text="Permissões" FontAttributes="Bold" FontSize="Small" HorizontalTextAlignment="Start"/>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="Rd" Toggled="OnToggled" OnColor="#0099CC" ThumbColor="#0099CC"/>
+                                    <Switch x:Name="Rd" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4"/>
                                     <Label Text="Gravar"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="Wr" Toggled="OnToggled" OnColor="#0099CC" ThumbColor="#0099CC" />
+                                    <Switch x:Name="Wr" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4" />
                                     <Label Text="Visualizar"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="ModSelf" Toggled="OnToggled" OnColor="#0099CC" ThumbColor="#0099CC"/>
+                                    <Switch x:Name="ModSelf" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4"/>
                                     <Label Text="Modificar dados"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="ModOther" Toggled="OnToggled" OnColor="#0099CC" ThumbColor="#0099CC"/>
+                                    <Switch x:Name="ModOther" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4"/>
                                     <Label Text="Modificar outros"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="IgnCoold" Toggled="OnToggled" OnColor="#0099CC" ThumbColor="#0099CC"/>
+                                    <Switch x:Name="IgnCoold" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4"/>
                                     <Label Text="Ignorar Espera"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="Admin" Toggled="OnToggled" OnColor="#0099CC" ThumbColor="#0099CC"/>
+                                    <Switch x:Name="Admin" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4"/>
                                     <Label Text="Administrador"/>
                                 </HorizontalStackLayout>
                             </VerticalStackLayout>

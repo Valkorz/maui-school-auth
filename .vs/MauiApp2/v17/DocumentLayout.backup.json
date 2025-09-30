@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|c:\\users\\pivar\\documents\\projects\\mauiapp2\\mauiapp2\\page2.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|solutionrelative:mauiapp2\\page2.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|c:\\users\\pivar\\documents\\projects\\mauiapp2\\mauiapp2\\pages\\controleacad.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|solutionrelative:mauiapp2\\pages\\controleacad.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|c:\\users\\pivar\\documents\\projects\\mauiapp2\\mauiapp2\\pages\\controleacad.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|solutionrelative:mauiapp2\\pages\\controleacad.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|c:\\users\\pivar\\documents\\projects\\mauiapp2\\mauiapp2\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|solutionrelative:mauiapp2\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|c:\\users\\pivar\\documents\\projects\\mauiapp2\\mauiapp2\\pages\\controleacad.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|solutionrelative:mauiapp2\\pages\\controleacad.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|c:\\users\\pivar\\documents\\projects\\mauiapp2\\mauiapp2\\page2.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|solutionrelative:mauiapp2\\page2.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A98F684B-8D4D-4155-B262-40A87C85E1FC}|MauiApp2\\MauiApp2.csproj|c:\\users\\pivar\\documents\\projects\\mauiapp2\\mauiapp2\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,11 +62,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "ControlPanel.xaml",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\ControlPanel.xaml",
               "RelativeDocumentMoniker": "MauiApp2\\ControlPanel.xaml",
@@ -75,7 +79,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "ControlPanel.xaml.cs",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\ControlPanel.xaml.cs",
               "RelativeDocumentMoniker": "MauiApp2\\ControlPanel.xaml.cs",
@@ -87,19 +91,6 @@
               "IsPinned": true
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Page2.xaml",
-              "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Page2.xaml",
-              "RelativeDocumentMoniker": "MauiApp2\\Page2.xaml",
-              "ToolTip": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Page2.xaml",
-              "RelativeToolTip": "MauiApp2\\Page2.xaml",
-              "ViewState": "AgIAABEAAAAAAAAAAAAAABkAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-09-01T03:54:47.595Z",
-              "EditorCaption": ""
-            },
-            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{f96a0d64-71fd-316f-b663-924c78154f2a}"
             },
@@ -109,7 +100,33 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ControleAcad.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Pages\\ControleAcad.xaml.cs",
+              "RelativeDocumentMoniker": "MauiApp2\\Pages\\ControleAcad.xaml.cs",
+              "ToolTip": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Pages\\ControleAcad.xaml.cs",
+              "RelativeToolTip": "MauiApp2\\Pages\\ControleAcad.xaml.cs",
+              "ViewState": "AgIAANIAAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-04T22:53:40.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Page2.xaml",
+              "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Page2.xaml",
+              "RelativeDocumentMoniker": "MauiApp2\\Page2.xaml",
+              "ToolTip": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Page2.xaml",
+              "RelativeToolTip": "MauiApp2\\Page2.xaml",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAAABkAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-01T03:54:47.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "MainPage.xaml.cs",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\MainPage.xaml.cs",
               "RelativeDocumentMoniker": "MauiApp2\\MainPage.xaml.cs",
@@ -117,25 +134,24 @@
               "RelativeToolTip": "MauiApp2\\MainPage.xaml.cs",
               "ViewState": "AgIAAEcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-01T03:52:07.62Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-01T03:52:07.62Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "MainPage.xaml",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\MainPage.xaml",
               "RelativeDocumentMoniker": "MauiApp2\\MainPage.xaml",
               "ToolTip": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\MainPage.xaml",
               "RelativeToolTip": "MauiApp2\\MainPage.xaml",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAAABIAAABTAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAABTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2025-09-01T03:37:24.354Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "CalendarPopup.xaml.cs",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Minipages\\CalendarPopup.xaml.cs",
               "RelativeDocumentMoniker": "MauiApp2\\Minipages\\CalendarPopup.xaml.cs",
@@ -143,8 +159,7 @@
               "RelativeToolTip": "MauiApp2\\Minipages\\CalendarPopup.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-28T18:58:34.758Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-28T18:58:34.758Z"
             }
           ]
         }
@@ -173,7 +188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "CalendarPopup.xaml",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Minipages\\CalendarPopup.xaml",
               "RelativeDocumentMoniker": "MauiApp2\\Minipages\\CalendarPopup.xaml",
@@ -181,12 +196,11 @@
               "RelativeToolTip": "MauiApp2\\Minipages\\CalendarPopup.xaml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-08-21T14:16:52.367Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T14:16:52.367Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "SchedulingPopup.xaml",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Minipages\\SchedulingPopup.xaml",
               "RelativeDocumentMoniker": "MauiApp2\\Minipages\\SchedulingPopup.xaml",
@@ -198,7 +212,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "ControleAcad.xaml",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Pages\\ControleAcad.xaml",
               "RelativeDocumentMoniker": "MauiApp2\\Pages\\ControleAcad.xaml",
@@ -211,7 +225,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "SchedulingPopup.xaml.cs",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Minipages\\SchedulingPopup.xaml.cs",
               "RelativeDocumentMoniker": "MauiApp2\\Minipages\\SchedulingPopup.xaml.cs",
@@ -223,7 +237,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "UserListPopup.xaml",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Minipages\\UserListPopup.xaml",
               "RelativeDocumentMoniker": "MauiApp2\\Minipages\\UserListPopup.xaml",
@@ -235,7 +249,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Users\\pivar\\Documents\\Projects\\MauiApp2\\MauiApp2\\Data\\User.cs",
               "RelativeDocumentMoniker": "MauiApp2\\Data\\User.cs",

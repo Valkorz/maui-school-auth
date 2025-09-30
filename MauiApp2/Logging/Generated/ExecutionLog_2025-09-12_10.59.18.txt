@@ -1,0 +1,116 @@
+[ 10:59:18.5994002 ]: ############# --              LOGGING STARTED          -- ##################
+[ 10:59:18.6009067 ]: Created logging file at: C:\Users\vittorio.pivarci\Documents\Maui_Logs\ExecutionLog_2025-09-12_10.59.18.txt
+[ 10:59:18.6010790 ]: Entered main page
+[ 10:59:18.6012033 ]: DB Path: C:\Users\vittorio.pivarci\AppData\Local\User Name\com.companyname.mauiapp2\Data\Users.db3
+[ 10:59:18.6060590 ]: Requested user lookup by predicate...
+[ 10:59:18.7561218 ]: User has been found? False
+[ 10:59:18.7573212 ]: Requested add user operation for: 0:Admin
+[ 10:59:24.1268409 ]: Loading log-in page...
+[ 10:59:26.3915524 ]: OnCompletion Clicked
+[ 10:59:27.3083307 ]: Submit page 2 clicked
+[ 10:59:27.3097988 ]: Looking for user with ID: 1...
+[ 10:59:27.3598583 ]: Found user: Admin
+[ 10:59:28.4088711 ]: Bem vindo(a), Admin!
+[ 10:59:29.4070247 ]: Animation for Microsoft.Maui.Controls.Button started.
+[ 10:59:30.9532909 ]: Looking for user with ID: 1...
+[ 10:59:30.9584010 ]: Found user: Admin
+[ 10:59:31.9596330 ]: Reading user 'Admin' schedule (size: 0)... 
+[ 10:59:31.9598946 ]: Updating buttons...
+[ 10:59:31.9617588 ]: Schedule: 
+[ 10:59:31.9620831 ]: Schedule: 
+[ 10:59:31.9623654 ]: Schedule: 
+[ 10:59:31.9629703 ]: Schedule: 
+[ 10:59:31.9631899 ]: Schedule: 
+[ 10:59:31.9633795 ]: Schedule: 
+[ 10:59:31.9635689 ]: Schedule: 
+[ 10:59:31.9637518 ]: Schedule: 
+[ 10:59:31.9639379 ]: Schedule: 
+[ 10:59:31.9641213 ]: Schedule: 
+[ 10:59:31.9642926 ]: Schedule: 
+[ 10:59:31.9644608 ]: Schedule: 
+[ 10:59:31.9646290 ]: Schedule: 
+[ 10:59:31.9647951 ]: Schedule: 
+[ 10:59:31.9649726 ]: Schedule: 
+[ 10:59:31.9651512 ]: Schedule: 
+[ 10:59:31.9653394 ]: Schedule: 
+[ 10:59:31.9655239 ]: Schedule: 
+[ 10:59:31.9657836 ]: Schedule: 
+[ 10:59:31.9660148 ]: Schedule: 
+[ 10:59:31.9661957 ]: Schedule: 
+[ 10:59:31.9663669 ]: Schedule: 
+[ 10:59:31.9665292 ]: Schedule: 
+[ 10:59:31.9666887 ]: Schedule: 
+[ 10:59:34.3351909 ]: Looking for user with ID: 1...
+[ 10:59:34.3380743 ]: Found user: Admin
+[ 10:59:34.4733873 ]: Looking for user with ID: 1...
+[ 10:59:34.4774213 ]: Found user: Admin
+[ 10:59:35.6079142 ]: Animation for Microsoft.Maui.Controls.Button started.
+[ 10:59:37.1082430 ]: Animation for Microsoft.Maui.Controls.Button started.
+[ 10:59:42.8674840 ]: Animation for Microsoft.Maui.Controls.Button started.
+[ 10:59:50.5295441 ]: Animation for Microsoft.Maui.Controls.Button started.
+[ 10:59:57.1747217 ]: Added MauiApp2.ClassManaging.ComponentApplicationInfo to MauiApp2.ClassManaging.StudentGradeComponent. Count: 1
+[ 10:59:58.0493269 ]: Animation for Microsoft.Maui.Controls.Button started.
+[ 11:00:07.1225693 ]: Added MauiApp2.ClassManaging.ComponentApplicationInfo to MauiApp2.ClassManaging.StudentGradeComponent. Count: 1
+[ 11:00:09.5114550 ]: Animation for Microsoft.Maui.Controls.Button started.
+[ 11:00:11.1154495 ]: Looking for user with ID: 1...
+[ 11:00:11.1173746 ]: Found user: Admin
+[ 11:00:11.6630845 ]: Reading user 'Admin' schedule (size: 0)... 
+[ 11:00:11.6633704 ]: Updating buttons...
+[ 11:00:11.6636208 ]: Schedule: 
+[ 11:00:11.6638553 ]: Schedule: 
+[ 11:00:11.6641096 ]: Schedule: 
+[ 11:00:11.6643929 ]: Schedule: 
+[ 11:00:11.6646119 ]: Schedule: 
+[ 11:00:11.6648141 ]: Schedule: 
+[ 11:00:11.6649989 ]: Schedule: 
+[ 11:00:11.6651997 ]: Schedule: 
+[ 11:00:11.6654031 ]: Schedule: 
+[ 11:00:11.6655724 ]: Schedule: 
+[ 11:00:11.6657400 ]: Schedule: 
+[ 11:00:11.6658983 ]: Schedule: 
+[ 11:00:11.6660646 ]: Schedule: 
+[ 11:00:11.6662470 ]: Schedule: 
+[ 11:00:11.6664297 ]: Schedule: 
+[ 11:00:11.6665867 ]: Schedule: 
+[ 11:00:11.6667809 ]: Schedule: 
+[ 11:00:11.6669384 ]: Schedule: 
+[ 11:00:11.6670946 ]: Schedule: 
+[ 11:00:11.6672550 ]: Schedule: 
+[ 11:00:11.6674694 ]: Schedule: 
+[ 11:00:11.6676350 ]: Schedule: 
+[ 11:00:11.6677930 ]: Schedule: 
+[ 11:00:11.6679541 ]: Schedule: 
+[ 11:00:13.8003280 ]: Looking for user with ID: 1...
+[ 11:00:13.8043998 ]: Found user: Admin
+[ 11:00:13.9727935 ]: Found user: Admin
+[ 11:00:13.9730306 ]: Updating new components with count: 0
+[ 11:00:13.9733472 ]: Reading user 'Admin' schedule (size: 0)... 
+[ 11:00:13.9735615 ]: Updating buttons...
+[ 11:00:13.9737993 ]: Schedule: 
+[ 11:00:13.9740048 ]: Schedule: 
+[ 11:00:13.9741672 ]: Schedule: 
+[ 11:00:13.9743245 ]: Schedule: 
+[ 11:00:13.9744947 ]: Schedule: 
+[ 11:00:13.9746523 ]: Schedule: 
+[ 11:00:13.9748073 ]: Schedule: 
+[ 11:00:13.9750180 ]: Schedule: 
+[ 11:00:13.9751901 ]: Schedule: 
+[ 11:00:13.9753513 ]: Schedule: 
+[ 11:00:13.9755128 ]: Schedule: 
+[ 11:00:13.9756655 ]: Schedule: 
+[ 11:00:13.9758141 ]: Schedule: 
+[ 11:00:13.9759660 ]: Schedule: 
+[ 11:00:13.9761115 ]: Schedule: 
+[ 11:00:13.9762527 ]: Schedule: 
+[ 11:00:13.9764422 ]: Schedule: 
+[ 11:00:13.9765862 ]: Schedule: 
+[ 11:00:13.9767312 ]: Schedule: 
+[ 11:00:13.9768733 ]: Schedule: 
+[ 11:00:13.9770171 ]: Schedule: 
+[ 11:00:13.9771606 ]: Schedule: 
+[ 11:00:13.9772983 ]: Schedule: 
+[ 11:00:13.9774398 ]: Schedule: 
+[ 11:00:14.9731540 ]: Looking for user with ID: 1...
+[ 11:00:14.9754904 ]: Found user: Admin
+[ 11:00:16.0984237 ]: Looking for user with ID: 1...
+[ 11:00:16.1008495 ]: Found user: Admin

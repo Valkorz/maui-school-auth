@@ -6,9 +6,9 @@
     x:Class="MauiApp2.Minipages.SchedulingPopup"
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}">
 
-    <Grid>
+    <Grid Margin="1">
         <!-- Segmento 1: lista de horários disponíveis -->
-        <FlexLayout x:Name="ScheduleListView" IsVisible="True" Wrap="Wrap" AlignItems="Center" JustifyContent="Center">
+        <FlexLayout x:Name="ScheduleListView" IsVisible="True" Direction="Column" AlignItems="Center" JustifyContent="Center">
             <ScrollView Orientation="Both">
                 <CollectionView x:Name="SchedulingList" ItemsSource="{Binding Grades}">
                 <CollectionView.ItemTemplate>
@@ -20,23 +20,30 @@
                                 </Border.StrokeShape>
 
                                 <FlexLayout Wrap="Wrap" AlignItems="Center" JustifyContent="Center">
-                                    <HorizontalStackLayout>
+                                    
+                                    <HorizontalStackLayout Spacing="4">
                                         <Label Text="Identificação: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                                         <Label Text="{Binding Identification}" HorizontalTextAlignment="Center"/>
                                     </HorizontalStackLayout>
-                                    <HorizontalStackLayout>
+                                    
+                                    <HorizontalStackLayout Spacing="4">
                                         <Label Text="Turma: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                                         <Label Text="{Binding Classroom}" HorizontalTextAlignment="Center"/>
                                     </HorizontalStackLayout>
-                                    <HorizontalStackLayout>
+                                    
+                                    <HorizontalStackLayout Spacing="4">
                                         <Label Text="Dia: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                                         <Label Text="{Binding Day}" HorizontalTextAlignment="Center"/>
                                     </HorizontalStackLayout>
-                                    <HorizontalStackLayout>
+                                    
+                                    <HorizontalStackLayout Spacing="4">
                                         <Label Text="Horário: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                                         <Label Text="{Binding PeriodStart}" HorizontalTextAlignment="Center"/>
+                                        <Label Text=" - " HorizontalTextAlignment="Center"/>
+                                        <Label Text="{Binding PeriodEnd}" HorizontalTextAlignment="Center"/>
                                     </HorizontalStackLayout>
-                                        <Button Text="Remover" Grid.Row="1"  Grid.Column="2" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold" Clicked="OnRemoveRequest"/>
+
+                                        <Button Text="Remover" Grid.Row="1"  Grid.Column="2" Style="{StaticResource ButtonStyle1}" Clicked="OnRemoveRequest"/>
                                 </FlexLayout>
                             </Border>
                         </ContentView>
@@ -45,14 +52,14 @@
                 </CollectionView>
             </ScrollView>
             <HorizontalStackLayout>
-                <Button Text="Adicionar" Clicked="OnScheduleClicked"/>
-                <Button Text="Sair" Clicked="OnExitClicked"/>
+                <Button Text="Adicionar" Clicked="OnScheduleClicked" Style="{StaticResource ButtonStyle1}"/>
+                <Button Text="Sair" Clicked="OnExitClicked" Style="{StaticResource ButtonStyle1}"/>
             </HorizontalStackLayout>
         </FlexLayout>
 
         <!-- Segmento 2: Edição de horário-->
 
-        <FlexLayout x:Name="ScheduleEditView" IsVisible="False" Wrap="Wrap" AlignItems="Center" JustifyContent="Center">
+        <FlexLayout x:Name="ScheduleEditView" IsVisible="False" Direction="Column" AlignItems="Center" JustifyContent="Center">
             <ScrollView Orientation="Both">
                 <Grid ColumnDefinitions="*, Auto, Auto, Auto" RowDefinitions="*,*,*,*" RowSpacing="5" ColumnSpacing="10" Padding="5">
                     <!-- IDENTIFICAÇÃO -->
@@ -75,8 +82,8 @@
                 </Grid>
             </ScrollView>
             <HorizontalStackLayout>
-                <Button Text="Confirmar" Clicked="OnConfirmClicked"/>
-                <Button Text="Cancelar" Clicked="OnCancelClicked"/>
+                <Button Text="Confirmar" Clicked="OnConfirmClicked" Style="{StaticResource ButtonStyle1}"/>
+                <Button Text="Cancelar" Clicked="OnCancelClicked" Style="{StaticResource ButtonStyle1}"/>
             </HorizontalStackLayout>
         </FlexLayout>
     </Grid>

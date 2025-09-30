@@ -15,10 +15,25 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <FlexLayout Grid.Row="0" Wrap="Wrap" JustifyContent="Center" AlignItems="Center">
+        <VerticalStackLayout Grid.Row="0" HorizontalOptions="Center">
             <Image Source="logo_facens.png" Aspect="AspectFit" HeightRequest="96"/>
-            <Button x:Name="Login" Text="LOGIN" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" />
-        </FlexLayout>
+            <ScrollView Orientation="Horizontal">
+                <HorizontalStackLayout Spacing="3">
+                    <Border Style="{StaticResource TopViewBorder}">
+                        <Button x:Name="Login" Text="Login" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent" BorderColor="Transparent" />
+                    </Border>
+                    <Border Style="{StaticResource TopViewBorder}">
+                        <Button Text="Inovação" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent"  BorderColor="Transparent"/>
+                    </Border>
+                    <Border Style="{StaticResource TopViewBorder}">
+                        <Button Text="Eventos" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent"  BorderColor="Transparent" />
+                    </Border>
+                    <Border Style="{StaticResource TopViewBorder}">
+                        <Button Text="Sobre" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent"   BorderColor="Transparent"/>
+                    </Border>
+                </HorizontalStackLayout>
+            </ScrollView>
+        </VerticalStackLayout>
 
         <CarouselView Grid.Row="1" x:Name="ImageCarousel" ItemsSource="{Binding ImageSources}"
                       HorizontalOptions="Fill" VerticalOptions="Fill">

@@ -91,13 +91,7 @@ namespace MauiApp2.Minipages
                 {
                     InterfaceAnimator.AnimatePop(btn);
 
-                    var component = await _usrControl.GetComponentByIdentificationAsync(selectedData.GradeIdentification);
-                    if (component != null)
-                    {
-                        var target = component.AvailableInfo.Single(x => x.Identification == selectedData.Identification);
-                        component.AvailableInfo.Remove(target);
-                        await _usrControl.PushComponentAsync(component);
-                    }
+                    await _usrControl.RemoveComponentApplicationInfoAsync(selectedData.Identification);
 
                     UpdateCollection();
                 }

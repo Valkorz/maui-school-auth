@@ -11,8 +11,8 @@
         <Entry x:Name="Description" Placeholder="Descrição"/>
         <Entry x:Name="Semester" Placeholder="Semestre" Keyboard="Numeric"/>
         <HorizontalStackLayout>
-            <Button Text="Salvar" Clicked="OnSaveClicked"/>
-            <Button Text="Cancelar" Clicked="OnCancelClicked"/>
+            <Button Text="Salvar" Clicked="OnSaveClicked" Style="{StaticResource ButtonStyle1}"/>
+            <Button Text="Cancelar" Clicked="OnCancelClicked" Style="{StaticResource ButtonStyle1}"/>
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </toolkit:Popup>

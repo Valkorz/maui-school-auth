@@ -8,22 +8,21 @@
         <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
     </Shell.BackButtonBehavior>
 
-    <Grid RowDefinitions="Auto,Auto"
+    <Grid RowDefinitions="Auto,Auto,Auto"
           RowSpacing="25"
           VerticalOptions="Start">
-        <Border
-            Grid.Row="0"
-            MaximumHeightRequest="200"
-            StrokeThickness="2.5"
-            Padding="10">
-            <Grid ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="10" RowSpacing="20">
-                <Image Source="user.png" HeightRequest="64" Aspect="AspectFit" SemanticProperties.Description="USER" Grid.Column="0" Grid.RowSpan="3"/>
-                
-                <Label x:Name="Welcome" Grid.Column="1" Grid.Row="0" Text="Welcome, @!" FontSize="Medium"/>
-                <Button Grid.Column="1" Grid.Row="1" Text="SIGN OUT" Pressed="OnSignOut"/>
-                
-            </Grid>
-        </Border>
+        <Border Style="{StaticResource ContentBox}"/>
+        <Grid ColumnDefinitions="Auto,Auto,*,Auto" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="30" RowSpacing="25" Padding="15">
+            <Image Source="user.png" HeightRequest="64" Aspect="AspectFit" SemanticProperties.Description="USER" Grid.Column="0" Grid.RowSpan="2" Grid.Row="0" HorizontalOptions="Start"/>
+            <Label x:Name="Welcome" Grid.Column="0" Grid.Row="2" Text="" FontSize="Large" FontAttributes="Bold"/>
+
+            <VerticalStackLayout Grid.Column="3" Grid.RowSpan="3" Spacing="20">
+                <Button Grid.Column="1" Grid.Row="1" Text="Sair" Pressed="OnSignOut" FontSize="Small" Style="{StaticResource ButtonStyle4}"/>
+                <Button Grid.Column="1" Grid.Row="1" Text="Perfil" Pressed="OnSignOut" FontSize="Small" Style="{StaticResource ButtonStyle4}"/>
+                <Button Grid.Column="1" Grid.Row="1" Text="Perfil" Pressed="OnSignOut" FontSize="Small" Style="{StaticResource ButtonStyle4}"/>
+            </VerticalStackLayout>
+        </Grid>
+        <Border Style="{StaticResource ContentBox}" Grid.Row="1"/>
         <Border
             x:Name="admin_panel"
             IsVisible="true"
@@ -31,33 +30,51 @@
             StrokeThickness="2.5"
             Padding="10">
             <Grid RowDefinitions="*,Auto">
+                <Label Grid.Row="0" Text="Acesso Admin" HorizontalTextAlignment="Center" FontSize="Medium" FontAttributes="Bold"/>
                 <FlexLayout
                     Grid.Row="1"
                     Wrap="Wrap"
                     JustifyContent="Center"
                     AlignItems="Center"
                     Direction="Row">
-                    <Button 
+                    <Border Style="{StaticResource TopViewBorder}">
+                        <Button 
                         Text="Controle Cadastral"
                         Clicked="OnDbControlClicked"
                         Focused="OnFocus"
-                        Margin="5"/>
-                    <Button
+                        Margin="5"
+                        BorderColor="Transparent"
+                        BackgroundColor="Transparent"/>
+                    </Border>
+                    <Border Style="{StaticResource TopViewBorder}">
+                        <Button
                         Text="Grade Acadêmica"
                         Clicked="OnGradingClicked"
                         Focused="OnFocus"
-                        Margin="5"/>
-                    <Button
+                        Margin="5"
+                        BorderColor="Transparent"
+                        BackgroundColor="Transparent"/>
+                    </Border>
+                    <Border Style="{StaticResource TopViewBorder}">
+                        <Button
                         Text="Controle de Horário"
                         Focused="OnFocus"
-                        Margin="5"/>
-                    <Button
+                        Margin="5"
+                        BorderColor="Transparent"
+                        BackgroundColor="Transparent"/>
+                    </Border>
+                    <Border Style="{StaticResource TopViewBorder}">
+                        <Button
                         Text="Canal de Avisos"
                         Focused="OnFocus"
-                        Margin="5"/>
+                        Margin="5"
+                        BorderColor="Transparent"
+                        BackgroundColor="Transparent"/>
+                    </Border>
                 </FlexLayout>
             </Grid>
         </Border>
+        
     </Grid>
     
 </ContentPage>

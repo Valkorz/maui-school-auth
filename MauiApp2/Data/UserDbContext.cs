@@ -13,11 +13,27 @@ namespace MauiApp2.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<StudentGradeComponent> Components { get; set; }
+        public DbSet<GradingComponentBinder> GradingComponentBinders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.GradingComponents)
+                .WithOne(gcb => gcb.User)
+                .HasForeignKey(gcb => gcb.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<StudentGradeComponent>()
-                .OwnsMany(x => x.AvailableInfo);      
+                .Property(e => e.TargetCourses)
+                .HasConversion<int>();
+
+            modelBuilder.Entity<StudentGradeComponent>()
+                .HasMany(e => e.AvailableInfo)
+                .WithOne()
+                .HasForeignKey(info => info.StudentGradeComponentId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

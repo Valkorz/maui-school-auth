@@ -97,14 +97,24 @@ namespace MauiApp2.Data
             User target;
             try
             {
-                target = await _context.Users.SingleAsync(u => u.Id == user.Id);
+                target = await _context.Users
+                               .Include(u => u.GradingComponents)
+                               .SingleAsync(u => u.Id == user.Id);
+
+                await App.Logger.WriteLineAsync($"Found user: {target.Name}");
                 //Modify properties
                 target.Password = user.Password;
                 target.Name = user.Name;
                 target.TimeOfCreation = user.TimeOfCreation;
                 target.Permissions = user.Permissions;
                 target.Email = user.Email;
-                target.GradingComponents = user.GradingComponents;
+                target.GradingComponents.Clear();
+                foreach (var component in user.GradingComponents)
+                {
+                    target.GradingComponents.Add(component);
+                    await App.Logger.WriteLineAsync($"Added: {component.Name}");
+                }
+                await App.Logger.WriteLineAsync($"Updating new components with count: {target.GradingComponents.Count}");
 
                 return await _context.SaveChangesAsync();
             }
@@ -144,15 +154,17 @@ namespace MauiApp2.Data
             target.Description = component.Description;
             target.Semester = component.Semester;
             target.TargetCourses = component.TargetCourses;
-            target.AvailableInfo = component.AvailableInfo;
             return await _context.SaveChangesAsync();
         }
 
         //Add new component application info
         public async Task<int> AddComponentApplicationInfoAsync(ComponentApplicationInfo info, string componentName)
         {
-            var component = await _context.Components.FirstOrDefaultAsync(c => c.Name == componentName);
-            if(component != null)
+            var component = await _context.Components
+                                          .Include(c => c.AvailableInfo)
+                                          .FirstOrDefaultAsync(c => c.Name == componentName);
+
+            if (component != null)
             {
                 component.AvailableInfo.Add(info);
                 await App.Logger.WriteLineAsync($"Added {info} to {component}. Count: {component.AvailableInfo.Count}");
@@ -165,13 +177,27 @@ namespace MauiApp2.Data
         {
             try
             {
-                return await _context.Components.SingleAsync(c => c.Code == identification);
+                return await _context.Components
+                                     .Include(c => c.AvailableInfo)
+                                     .SingleAsync(c => c.Code == identification);
             }
             catch (Exception ex)
             {
                 await App.Logger.WriteExceptionAsync(ex);
                 return null;
             }
+        }
+
+        public async Task<int> RemoveComponentApplicationInfoAsync(string infoIdentification)
+        {
+            var info = await _context.Set<ComponentApplicationInfo>().FirstOrDefaultAsync(i => i.Identification == infoIdentification);
+            if (info != null)
+            {
+                _context.Set<ComponentApplicationInfo>().Remove(info);
+                await App.Logger.WriteLineAsync($"Removed {info.Identification}.");
+                return await _context.SaveChangesAsync();
+            }
+            return 0; // Nenhum item encontrado para remover
         }
 
         //Remove component 

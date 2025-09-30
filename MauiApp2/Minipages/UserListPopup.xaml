@@ -29,22 +29,35 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <ContentView>
-                        <Border Margin="10" MaximumWidthRequest="380">
+                        <Border Margin="0" MaximumWidthRequest="380" MinimumHeightRequest="130">
                             <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="10,10,10,10"></RoundRectangle>
+                                <RoundRectangle CornerRadius="0,00,10,10"></RoundRectangle>
                             </Border.StrokeShape>
 
-                            <Grid RowDefinitions="Auto, *" RowSpacing="5">
+                            <Grid RowDefinitions="Auto, *">
                                 <BoxView Style="{StaticResource CardHeadingStyle}"/>
                                 
                                 <!-- Cabeçalho do cartão -->
-                                <HorizontalStackLayout Padding="10" Spacing="5">
-                                    <Label Text="{Binding Name}" TextColor="white" FontAttributes="Bold"/>
-                                    <Label Text=" |  " TextColor="white" FontAttributes="Bold"/>
-                                    <Label Text="{Binding Id}" TextColor="white" FontAttributes="Bold"/>
-                                </HorizontalStackLayout>
+                                <Border Style="{StaticResource TopViewBorder}">
+                                    <FlexLayout Wrap="Wrap" JustifyContent="Center" AlignItems="Center">
+                                        <Border Style="{StaticResource TopViewBorder2}">
+                                            <HorizontalStackLayout Padding="10" Spacing="5">
+                                                <Label Text="{Binding Name}" TextColor="white" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                <Label Text=" |  " TextColor="white" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                <Label Text="{Binding Id}" TextColor="white" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                            </HorizontalStackLayout>
+                                        </Border>
 
-                                <FlexLayout Direction="Column" JustifyContent="Center" AlignItems="Center" Grid.Row="1" Margin="5" Padding="5">
+                                        <Border Style="{StaticResource TopViewBorder}">
+                                            <Button Text="Selecionar" BackgroundColor="Transparent" BorderColor="Transparent"/>
+                                        </Border>
+                                        <Border Style="{StaticResource TopViewBorder}">
+                                            <Button Text="Remover" BackgroundColor="Transparent" BorderColor="Transparent"/>
+                                        </Border>
+                                    </FlexLayout>
+                                </Border>
+
+                                <FlexLayout Direction="Column" JustifyContent="Center" AlignItems="Center" Grid.Row="1">
                                     <HorizontalStackLayout Spacing="5">
                                         <Label Text="Email: "  FontAttributes="Bold"/>
                                         <Label Text="{Binding Email}"/>
@@ -53,10 +66,10 @@
                                         <Label Text="Data: "  FontAttributes="Bold"/>
                                         <Label Text="{Binding TimeOfCreation}"/>
                                     </HorizontalStackLayout>
-                                    <HorizontalStackLayout Spacing="5">
+                                    <FlexLayout Wrap="Wrap" AlignItems="Center" JustifyContent="Center" Padding="0">
                                         <Label Text="Nível: "  FontAttributes="Bold"/>
                                         <Label Text="{Binding Permissions}"/>
-                                    </HorizontalStackLayout>
+                                    </FlexLayout>
                                 </FlexLayout>
                             </Grid>
                         </Border>

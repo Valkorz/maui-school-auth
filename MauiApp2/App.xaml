@@ -19,7 +19,7 @@
                 </Setter>
             </Style>
             <Style x:Key="ButtonStyle1" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#0099CC" />
+                <Setter Property="BackgroundColor" Value="#4568e4" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="CornerRadius" Value="12" />
                 <Setter Property="FontSize" Value="18" />
@@ -54,6 +54,75 @@
                 <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
+            <Style x:Key="ButtonStyle4" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#FFFFFF"/>
+                <Setter Property="TextColor" Value="#000000"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="BorderColor" Value="Transparent"/>
+                <Setter Property="BorderWidth" Value="0"/>
+                <Setter Property="MinimumWidthRequest" Value="120"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style x:Key="TopViewBorder" TargetType="Border">
+                <Setter Property="StrokeThickness" Value="1.2"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="Padding" Value="2"/>
+                    
+                <Setter Property="Stroke">
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="Transparent"
+                          Offset="0.1" />
+                        <GradientStop Color="Black"
+                          Offset="0.8" />
+                    </LinearGradientBrush>
+                </Setter>
+
+                <Setter Property="Background">
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#f0faff" Offset="0.01"/>
+                        <GradientStop Color="Transparent" Offset="0.9"/>
+                    </LinearGradientBrush>
+                </Setter>
+            </Style>
+            
+            <Style x:Key="TopViewBorder2" TargetType="Border">
+                <Setter Property="StrokeThickness" Value="1.2"/>
+                <Setter Property="BackgroundColor" Value="Transparent"/>
+                <Setter Property="Padding" Value="2"/>
+                    
+                <Setter Property="Stroke">
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="Black"
+                          Offset="0.2" />
+                        <GradientStop Color="Transparent"
+                          Offset="1.2" />
+                    </LinearGradientBrush>
+                </Setter>
+
+                <Setter Property="Background">
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="Transparent" Offset="0.01"/>
+                        <GradientStop Color="#f0faff" Offset="1.1"/>
+                    </LinearGradientBrush>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ContentBox" TargetType="Border">
+                <Setter Property="StrokeThickness" Value="1"/>
+                <Setter Property="Padding" Value="2"/>
+                <Setter Property="BackgroundColor" Value="#4568e4"/>
+
+
+                <Setter Property="Shadow">
+                    <Shadow Brush="Black" Opacity="0.3" Radius="4"/>
+                </Setter>
+
+                <Setter Property="StrokeShape">
+                    <RoundRectangle CornerRadius="5,5,5,5"/>
+                </Setter>
+            </Style>
+            
             <Style x:Key="LabelBox" TargetType="Border">
                 <Setter Property="Stroke" Value="#EBEBEA"/>
                 <Setter Property="StrokeThickness" Value="1"/>
@@ -66,12 +135,6 @@
             <Color x:Key="TextColorLight">#222222</Color>
             <Color x:Key="TextColorDark">#FFFFFF</Color>
 
-            <!-- 
-            ================================================================
-            CORREÇÃO: Os dois estilos globais para Button foram unificados em um só.
-            Isso resolve a exceção ArgumentException.
-            ================================================================
-            -->
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#333333}" />
                 <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}" />
@@ -81,7 +144,7 @@
                 <Setter Property="Padding" Value="14,10" />
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="MinimumWidthRequest" Value="120"/>
+                <Setter Property="MinimumWidthRequest" Value="10"/>
                 <Setter Property="VerticalOptions" Value="Center"/>
             </Style>
 
@@ -92,8 +155,6 @@
             <Style TargetType="Label">
                 <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
             </Style>
-
-            <!-- O segundo estilo global para Button foi removido daqui -->
 
             <Style TargetType="Shadow" >
                 <Setter Property="Brush" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />

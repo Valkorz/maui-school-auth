@@ -1,0 +1,14 @@
+[ 11:00:22.4945989 ]: ############# --              LOGGING STARTED          -- ##################
+[ 11:00:22.4960706 ]: Created logging file at: C:\Users\vittorio.pivarci\Documents\Maui_Logs\ExecutionLog_2025-09-12_11.00.22.txt
+[ 11:00:22.4962609 ]: Entered main page
+[ 11:00:22.4963736 ]: DB Path: C:\Users\vittorio.pivarci\AppData\Local\User Name\com.companyname.mauiapp2\Data\Users.db3
+[ 11:00:22.5013765 ]: Requested user lookup by predicate...
+[ 11:00:22.6731096 ]: User has been found? True
+[ 11:00:24.6765868 ]: Loading log-in page...
+[ 11:00:26.1597584 ]: OnCompletion Clicked
+[ 11:00:26.9857087 ]: Submit page 2 clicked
+[ 11:00:26.9867627 ]: Looking for user with ID: 1...
+[ 11:00:27.0622062 ]: Found user: Admin
+[ 11:00:27.8692500 ]: Bem vindo(a), Admin!
+[ 11:00:31.0562277 ]: Animation for Microsoft.Maui.Controls.Button started.
+[ 11:00:32.3624370 ]: Animation for Microsoft.Maui.Controls.Button started.

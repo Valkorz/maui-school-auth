@@ -17,6 +17,39 @@ namespace MauiApp2.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
 
+            modelBuilder.Entity("MauiApp2.ClassManaging.ComponentApplicationInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Classroom")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Day")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Identification")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeSpan>("PeriodEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeSpan>("PeriodStart")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("StudentGradeComponentId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentGradeComponentId");
+
+                    b.ToTable("ComponentApplicationInfo");
+                });
+
             modelBuilder.Entity("MauiApp2.ClassManaging.GradingComponentBinder", b =>
                 {
                     b.Property<int>("Id")
@@ -44,14 +77,14 @@ namespace MauiApp2.Migrations
                     b.Property<TimeSpan>("PeriodStart")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("GradingComponentBinder");
+                    b.ToTable("GradingComponentBinders");
                 });
 
             modelBuilder.Entity("MauiApp2.ClassManaging.StudentGradeComponent", b =>
@@ -112,51 +145,28 @@ namespace MauiApp2.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("MauiApp2.ClassManaging.ComponentApplicationInfo", b =>
+                {
+                    b.HasOne("MauiApp2.ClassManaging.StudentGradeComponent", null)
+                        .WithMany("AvailableInfo")
+                        .HasForeignKey("StudentGradeComponentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MauiApp2.ClassManaging.GradingComponentBinder", b =>
                 {
-                    b.HasOne("MauiApp2.Data.User", null)
+                    b.HasOne("MauiApp2.Data.User", "User")
                         .WithMany("GradingComponents")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MauiApp2.ClassManaging.StudentGradeComponent", b =>
                 {
-                    b.OwnsMany("MauiApp2.ClassManaging.ComponentApplicationInfo", "AvailableInfo", b1 =>
-                        {
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("INTEGER");
-
-                            b1.Property<string>("Classroom")
-                                .IsRequired()
-                                .HasColumnType("TEXT");
-
-                            b1.Property<int>("Day")
-                                .HasColumnType("INTEGER");
-
-                            b1.Property<string>("Identification")
-                                .IsRequired()
-                                .HasColumnType("TEXT");
-
-                            b1.Property<TimeSpan>("PeriodEnd")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<TimeSpan>("PeriodStart")
-                                .HasColumnType("TEXT");
-
-                            b1.Property<int>("StudentGradeComponentId")
-                                .HasColumnType("INTEGER");
-
-                            b1.HasKey("Id");
-
-                            b1.HasIndex("StudentGradeComponentId");
-
-                            b1.ToTable("ComponentApplicationInfo");
-
-                            b1.WithOwner()
-                                .HasForeignKey("StudentGradeComponentId");
-                        });
-
                     b.Navigation("AvailableInfo");
                 });
 

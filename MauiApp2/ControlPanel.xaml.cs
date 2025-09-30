@@ -23,8 +23,9 @@ namespace MauiApp2
                 admin_panel.IsVisible = false;
             }
 #endif
-            //int selector = Welcome.Text.
             _usrControl = usrControl;
+            Welcome.Text = $"Bem vindo(a), {App.ActiveUser?.Name}!";
+            App.Logger.WriteLineAsync($"Bem vindo(a), {App.ActiveUser?.Name}!");
         }
 
         public async void OnDbControlClicked(object sender, EventArgs e)

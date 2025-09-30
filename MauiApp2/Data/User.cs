@@ -123,6 +123,8 @@ namespace MauiApp2.Data
         //Adds grading component if compatible 
         public bool AddGradingComponent(GradingComponentBinder gradeComponent, bool replace = false)
         {
+            App.Logger.WriteLineAsync($"Adding grade component: {gradeComponent} of ID {gradeComponent.Code} ({gradeComponent.Name})");
+            
             //Check of name or ID exists
             var ExistingComponentById = GradingComponents.FirstOrDefault(x => x.Code == gradeComponent.Code || x.Name == gradeComponent.Name);
             if (ExistingComponentById != null && !replace)

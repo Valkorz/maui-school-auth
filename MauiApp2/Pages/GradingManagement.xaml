@@ -7,8 +7,8 @@
     <VerticalStackLayout>
 
         <FlexLayout Wrap="Wrap" AlignItems="Center" JustifyContent="Start">
-            <Button Text="Add" Clicked="OnAddRequest"/>
-            <Button Text="Filtros" Clicked="OnFilterSetRequest"/>
+            <Button Text="Add" Clicked="OnAddRequest" Style="{StaticResource ButtonStyle1}"/>
+            <Button Text="Filtros" Clicked="OnFilterSetRequest" Style="{StaticResource ButtonStyle1}"/>
             <Label x:Name="ListaFiltros" Text="FILTRO: Cód.: {filter.GradeCode}, Nome: {filter.GradeName}, Semestre: {filter.Semester}" FontSize="Small" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
         </FlexLayout>    
 
@@ -47,8 +47,8 @@
 
                                             <!-- Botões -->
                                             <VerticalStackLayout Margin="5" Spacing="5" FlexLayout.Grow="3">
-                                                <Button Text="Quadro de horários" FontAttributes="Bold" Clicked="OnSchedulingSelect"/>
-                                                <Button Text="Remover" BackgroundColor="DarkRed" TextColor="White" FontAttributes="Bold" Clicked="OnRemoveRequest"/>
+                                                <Button Text="Quadro de horários" FontAttributes="Bold" Clicked="OnSchedulingSelect" Style="{StaticResource ButtonStyle1}"/>
+                                                <Button Text="Remover" Style="{StaticResource ButtonStyle1}" FontAttributes="Bold" Clicked="OnRemoveRequest"/>
                                             </VerticalStackLayout>
                                         </VerticalStackLayout>
                                     </FlexLayout>

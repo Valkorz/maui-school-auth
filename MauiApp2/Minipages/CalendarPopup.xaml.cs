@@ -90,6 +90,12 @@ public partial class CalendarPopup : Popup
 
     private async void UpdateButtons()
     {
+        await App.Logger.WriteLineAsync($"Reading user '{TargetUser.Name}' schedule (size: {TargetUser.GradingComponents.Count})... ");
+        foreach(var binder in TargetUser.GradingComponents)
+        {
+            await App.Logger.WriteLineAsync($"{binder.Name} ({binder.Id}): @{binder.Classroom}, {binder.Day} | {binder.PeriodStart}");
+        }
+        
         await App.Logger.WriteLineAsync("Updating buttons...");
         try
         {
@@ -99,7 +105,7 @@ public partial class CalendarPopup : Popup
                 {
                     string? cellIdentifier = btn.AutomationId;
 
-                    if (cellIdentifier == null)
+                    if (cellIdentifier == null) 
                         continue;
 
                     var time = TimeSpan.Parse(cellIdentifier[..5]);
@@ -147,6 +153,7 @@ public partial class CalendarPopup : Popup
         {
             bool result = TargetUser.AddGradingComponent(selectedSchedule.ToComponentBinder(), true);
             await App.Logger.WriteLineAsync($"Added grading component success: {result}");
+            await App.Logger.WriteLineAsync($"Number of grading components: {TargetUser.GradingComponents.Count}");
 
             await _usrControl.PushUserAsync(TargetUser);
             UpdateButtons();

@@ -29,6 +29,9 @@ namespace MauiApp2.ClassManaging
         public Weekdays Day { get; set; }
         public TimeSpan PeriodStart { get; set; }
         public TimeSpan PeriodEnd { get; set; }
+
+        // Chave estrangeira para StudentGradeComponent
+        public int StudentGradeComponentId { get; set; }
     }
     
     public class StudentGradeComponent

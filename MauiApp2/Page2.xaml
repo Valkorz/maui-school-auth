@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp2.Page2">
 
-    <Border
+    <Grid>
+        <Image Source="facens1.jpg" Aspect="AspectFill" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+        <Border
         Stroke="#D2D1E7"
         StrokeThickness="2.5"
         Padding="10"
@@ -12,74 +14,79 @@
         MinimumWidthRequest="350"
         MinimumHeightRequest="500"
         MaximumWidthRequest="450"
-        MaximumHeightRequest="650">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="40,0,0,40"></RoundRectangle>
-        </Border.StrokeShape>
-        <Border.Shadow>
-            <Shadow
-                Brush="#0C04E3"
-                Opacity="0.2"
-                Radius="5"/>
-        </Border.Shadow>
+        MaximumHeightRequest="650"
+        BackgroundColor="White"
+        Opacity="0.8">
 
-        <Grid RowDefinitions="*,Auto">
-            <StackLayout
-            HorizontalOptions="Center"
-            Spacing="10"
-            Grid.Row="0">
-                <Image
-                Source="logo_facens.png"
-                Aspect="AspectFit"
-                WidthRequest="128"
-                HeightRequest="128"
-                SemanticProperties.Description="FACENS" />
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10,10,10,10"></RoundRectangle>
+            </Border.StrokeShape>
+            <Border.Shadow>
+                <Shadow
+                Brush="Black"
+                Opacity="0.1"
+                Radius="3"/>
+            </Border.Shadow>
 
-                <Label
-                Text="Authentication is Required"
-                FontSize="Medium"
-                FontFamily=""
-                Margin="15"
-                SemanticProperties.HeadingLevel="Level2"/>
+            <Grid RowDefinitions="*,Auto">
+                <StackLayout
+                    HorizontalOptions="Center"
+                    Spacing="10"
+                    Grid.Row="0">
+                    <Image
+                    Source="logo_facens.png"
+                    Aspect="AspectFit"
+                    WidthRequest="128"
+                    HeightRequest="128"
+                    SemanticProperties.Description="FACENS" />
 
-                <Entry
-                x:Name="entry_ID"
-                Placeholder="000000"
-                PlaceholderColor="Gray"
-                FontSize="16"
-                Keyboard="Numeric"
-                MaxLength="6"
-                ReturnType="Send"
-                Completed="OnCompletion"
-                Unfocused="OnCompletion"
-                HorizontalOptions="FillAndExpand"></Entry>
+                    <Label
+                    Text="Acesso acadêmico"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    FontFamily=""
+                    Margin="15"
+                    SemanticProperties.HeadingLevel="Level2"/>
 
-                <Entry
-                x:Name="entry_pass"
-                Placeholder="Password"
-                PlaceholderColor="Gray"
-                FontSize="16"
-                Keyboard="Text"
-                MaxLength="15"
-                IsPassword="True"
-                ReturnType="Send"
-                Completed="OnSubmitClicked"
-                HorizontalOptions="FillAndExpand"></Entry>
+                    <Entry
+                    x:Name="entry_ID"
+                    Placeholder="000000"
+                    PlaceholderColor="Gray"
+                    FontSize="16"
+                    Keyboard="Numeric"
+                    MaxLength="6"
+                    ReturnType="Send"
+                    Completed="OnCompletion"
+                    Unfocused="OnCompletion"
+                    HorizontalOptions="FillAndExpand"></Entry>
 
-                
-            </StackLayout>
-            <StackLayout 
-                VerticalOptions="Center"
-                Grid.Row="1">
+                    <Entry
+                    x:Name="entry_pass"
+                    Placeholder="Senha"
+                    PlaceholderColor="Gray"
+                    FontSize="16"
+                    Keyboard="Text"
+                    MaxLength="15"
+                    IsPassword="True"
+                    ReturnType="Send"
+                    Completed="OnSubmitClicked"
+                    HorizontalOptions="FillAndExpand"></Entry>
 
-                <Button
-                x:Name="btn_submit"
-                Text="SUBMIT"
-                FontSize="16"
-                Clicked="OnSubmitClicked"
-                Margin="40,0,40,0"/>
-            </StackLayout>
-        </Grid>
-    </Border>
+
+                </StackLayout>
+                <StackLayout 
+                    VerticalOptions="Center"
+                    Grid.Row="1">
+
+                    <Button
+                    x:Name="btn_submit"
+                    Text="Enviar"
+                    Style="{StaticResource ButtonStyle1}"
+                    Clicked="OnSubmitClicked"
+                    />
+                </StackLayout>
+            </Grid>
+        </Border>
+    </Grid>
 
 </ContentPage>
