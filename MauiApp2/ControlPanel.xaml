@@ -7,11 +7,21 @@
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
     </Shell.BackButtonBehavior>
+    
+    <ContentPage.Resources>
+        <Style x:Key="FlatContentBox" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#333333}" />
+            <Setter Property="Stroke" Value="Transparent"/>
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+    </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto,Auto,Auto"
           RowSpacing="25"
           VerticalOptions="Start">
-        <Border Style="{StaticResource ContentBox}"/>
+        <Image Source="facens1.jpg" Aspect="AspectFill" HorizontalOptions="Fill" VerticalOptions="Fill" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
+        <Border Style="{StaticResource FlatContentBox}"/>
         <Grid ColumnDefinitions="Auto,Auto,*,Auto" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="30" RowSpacing="25" Padding="15">
             <Image Source="user.png" HeightRequest="64" Aspect="AspectFit" SemanticProperties.Description="USER" Grid.Column="0" Grid.RowSpan="2" Grid.Row="0" HorizontalOptions="Start"/>
             <Label x:Name="Welcome" Grid.Column="0" Grid.Row="2" Text="" FontSize="Large" FontAttributes="Bold"/>
@@ -19,17 +29,18 @@
             <VerticalStackLayout Grid.Column="3" Grid.RowSpan="3" Spacing="20">
                 <Button Grid.Column="1" Grid.Row="1" Text="Sair" Pressed="OnSignOut" FontSize="Small" Style="{StaticResource ButtonStyle4}"/>
                 <Button Grid.Column="1" Grid.Row="1" Text="Perfil" Pressed="OnSignOut" FontSize="Small" Style="{StaticResource ButtonStyle4}"/>
-                <Button Grid.Column="1" Grid.Row="1" Text="Perfil" Pressed="OnSignOut" FontSize="Small" Style="{StaticResource ButtonStyle4}"/>
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                    <Label Text="tema"/>
+                    <Switch Toggled="OnThemeToggle"/>
+                </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>
-        <Border Style="{StaticResource ContentBox}" Grid.Row="1"/>
         <Border
             x:Name="admin_panel"
             IsVisible="true"
             Grid.Row="1"
-            StrokeThickness="2.5"
-            Padding="10">
-            <Grid RowDefinitions="*,Auto">
+            Style="{StaticResource FlatContentBox}">
+            <Grid RowDefinitions="Auto,*" VerticalOptions="Center" RowSpacing="15">
                 <Label Grid.Row="0" Text="Acesso Admin" HorizontalTextAlignment="Center" FontSize="Medium" FontAttributes="Bold"/>
                 <FlexLayout
                     Grid.Row="1"
@@ -74,7 +85,54 @@
                 </FlexLayout>
             </Grid>
         </Border>
-        
+        <!-- Lista de horários do dia -->
+        <CollectionView x:Name="SchedulingList" Grid.Row="2" HorizontalOptions="Center">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView>
+                        <Border Margin="5"
+                                Style="{StaticResource FlatContentBox}">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10,10,10,10"></RoundRectangle>
+                            </Border.StrokeShape>
+
+                            <Grid RowDefinitions="Auto, *" RowSpacing="5">
+                                <BoxView Style="{StaticResource CardHeadingStyle}" Grid.Row="0"/>
+                                <HorizontalStackLayout Spacing="5" Grid.Row="0" Margin="5">
+                                    <Label Text="{Binding Identification}" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="White"/>
+                                    <Label Text="{Binding GradeIdentification}" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="White"/>
+                                </HorizontalStackLayout>
+
+                                <!-- Conteúdo -->
+                                <FlexLayout Wrap="Wrap" AlignItems="Center" JustifyContent="SpaceBetween" Margin="10" Grid.Row="1">
+                                    <HorizontalStackLayout Spacing="3">
+                                        <Label Text="Componente: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                        <Label Text="{Binding GradeName}" HorizontalTextAlignment="Center"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="3">
+                                        <Label Text="Turma: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Classroom}" HorizontalTextAlignment="Center"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="3">
+                                        <Label Text="Dia: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                        <Label Text="{Binding Day}" HorizontalTextAlignment="Center"/>
+                                    </HorizontalStackLayout>
+                                    <HorizontalStackLayout Spacing="3">
+                                        <Label Text="Horário: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                        <Label Text="{Binding PeriodStart}" HorizontalTextAlignment="Center"/>
+                                        <Label Text=" - " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                        <Label Text="{Binding PeriodEnd}" HorizontalTextAlignment="Center"/>
+                                    </HorizontalStackLayout>
+                                </FlexLayout>
+                            </Grid>
+                        </Border>
+                    </ContentView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </Grid>
     
 </ContentPage>

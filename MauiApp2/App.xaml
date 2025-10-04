@@ -135,6 +135,11 @@
             <Color x:Key="TextColorLight">#222222</Color>
             <Color x:Key="TextColorDark">#FFFFFF</Color>
 
+            <Style TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#333333}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}" />
+            </Style>
+
             <Style TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#333333}" />
                 <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}" />
@@ -158,10 +163,6 @@
 
             <Style TargetType="Shadow" >
                 <Setter Property="Brush" Value="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}" />
-            </Style>
-
-            <Style TargetType="Entry">
-                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColorLight}, Dark={StaticResource TextColorDark}}" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

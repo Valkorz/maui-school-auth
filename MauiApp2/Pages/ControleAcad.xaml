@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:data="clr-namespace:MauiApp2.Data"
+             xmlns:converters="clr-namespace:MauiApp2.Converters"
              x:Class="MauiApp2.Pages.ControleAcad"
-             Title="Controle Acadêmico">
+             Title="Controle Acadêmico"
+             x:Name="thisPage">
+
+    <ContentPage.Resources>
+        <!-- 1. Declare o conversor e atribua os estilos a ele -->
+        <converters:BoolToStyleConverter x:Key="EnableStyleConverter"
+                                         TrueStyle="{StaticResource ButtonStyle1}"
+                                         FalseStyle="{StaticResource ButtonStyle1Inactive}" />
+        <converters:PermissionToBoolConverter x:Key="PermissionToggleConverter"/>
+    </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto, *" RowSpacing="5">
         <Border Grid.Row="0">
@@ -24,17 +35,35 @@
                 </FlexLayout>
 
                 <FlexLayout Wrap="Wrap" JustifyContent="Center" AlignItems="Center" Grid.Row="1">
-                    <Button x:Name="Save" Text="Salvar" Style="{StaticResource ButtonStyle1}"  Clicked="OnUpdateRequest"/>
-                    <Button x:Name="Delete" Text="Deletar" Style="{StaticResource ButtonStyle1}" Margin="5"/>
-                    <Button x:Name="Calendar" Text="Calendário Acadêmico" Style="{StaticResource ButtonStyle1}" Clicked="OnCalendarOpen" IsEnabled="False"/>
-                    <Button Text="Listar Usuários" Style="{StaticResource ButtonStyle1}" Margin="5" Clicked="OnUserListRequest"/>
+                    <Button 
+                        x:Name="Save" 
+                        Text="Salvar" 
+                        Style="{Binding Source={x:Reference thisPage}, Path=IsUserActive, Converter={StaticResource EnableStyleConverter}}"  
+                        Clicked="OnUpdateRequest" 
+                        IsEnabled="{Binding Source={x:Reference thisPage}, Path=IsUserActive}"/>
+                    <Button 
+                        x:Name="Delete" 
+                        Text="Deletar" 
+                        Style="{Binding Source={x:Reference thisPage}, Path=IsUserActive, Converter={StaticResource EnableStyleConverter}}" 
+                        Margin="5" 
+                        IsEnabled="{Binding Source={x:Reference thisPage}, Path=IsUserActive}"/>
+                    <Button 
+                        x:Name="Calendar" 
+                        Text="Calendário Acadêmico" 
+                        Style="{Binding Source={x:Reference thisPage}, Path=IsUserActive, Converter={StaticResource EnableStyleConverter}}" 
+                        Clicked="OnCalendarOpen" 
+                        IsEnabled="{Binding Source={x:Reference thisPage}, Path=IsUserActive}"/>
+                    <Button 
+                        Text="Listar Usuários" 
+                        Style="{StaticResource ButtonStyle1}"
+                        Margin="5" Clicked="OnUserListRequest" />
                 </FlexLayout>
             </Grid>
         </Border>
 
         <Border Grid.Row="1">
             <ScrollView Orientation="Vertical">
-                <FlexLayout x:Name="ModifyContentsSection" JustifyContent="SpaceBetween" AlignItems="Start" Margin="8" Direction="Column" MaximumWidthRequest="320">
+                <FlexLayout x:Name="ModifyContentsSection" JustifyContent="SpaceBetween" AlignItems="Start" Margin="8" Direction="Column" MaximumWidthRequest="320" IsVisible="{Binding Source={x:Reference thisPage}, Path=IsUserActive}">
                     <Label Text="Modificar Dados" FontSize="Medium" HorizontalTextAlignment="Center"/>
                     
                     <!-- Campos modificáveis -->
@@ -61,27 +90,57 @@
                             <VerticalStackLayout Spacing="5">
                                 <Label Text="Permissões" FontAttributes="Bold" FontSize="Small" HorizontalTextAlignment="Start"/>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="Rd" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4"/>
+                                    <Switch 
+                                        x:Name="Rd" 
+                                        Toggled="OnToggled" 
+                                        OnColor="#4568e4" 
+                                        ThumbColor="#4568e4"
+                                        IsToggled="{Binding Source={x:Reference thisPage}, Path=SelectedUser.Permissions, Converter={StaticResource PermissionToggleConverter}, ConverterParameter={x:Static data:User+UserPermissions.Read}}"/>
                                     <Label Text="Gravar"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="Wr" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4" />
+                                    <Switch 
+                                        x:Name="Wr" 
+                                        Toggled="OnToggled" 
+                                        OnColor="#4568e4" 
+                                        ThumbColor="#4568e4" 
+                                        IsToggled="{Binding Source={x:Reference thisPage}, Path=SelectedUser.Permissions, Converter={StaticResource PermissionToggleConverter}, ConverterParameter={x:Static data:User+UserPermissions.Write}}"/>
                                     <Label Text="Visualizar"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="ModSelf" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4"/>
+                                    <Switch 
+                                        x:Name="ModSelf" 
+                                        Toggled="OnToggled" 
+                                        OnColor="#4568e4" 
+                                        ThumbColor="#4568e4"
+                                        IsToggled="{Binding Source={x:Reference thisPage}, Path=SelectedUser.Permissions, Converter={StaticResource PermissionToggleConverter}, ConverterParameter={x:Static data:User+UserPermissions.ModifySelf}}"/>
                                     <Label Text="Modificar dados"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="ModOther" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4"/>
+                                    <Switch 
+                                        x:Name="ModOther" 
+                                        Toggled="OnToggled" 
+                                        OnColor="#4568e4" 
+                                        ThumbColor="#4568e4"
+                                        IsToggled="{Binding Source={x:Reference thisPage}, Path=SelectedUser.Permissions, Converter={StaticResource PermissionToggleConverter}, ConverterParameter={x:Static data:User+UserPermissions.ModifyOther}}"/>
                                     <Label Text="Modificar outros"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="IgnCoold" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4"/>
+                                    <Switch 
+                                        x:Name="IgnCoold" 
+                                        Toggled="OnToggled" 
+                                        OnColor="#4568e4" 
+                                        ThumbColor="#4568e4"
+                                        IsToggled="{Binding Source={x:Reference thisPage}, Path=SelectedUser.Permissions, Converter={StaticResource PermissionToggleConverter}, ConverterParameter={x:Static data:User+UserPermissions.IgnoreCooldown}}"/>
                                     <Label Text="Ignorar Espera"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout>
-                                    <Switch x:Name="Admin" Toggled="OnToggled" OnColor="#4568e4" ThumbColor="#4568e4"/>
+                                    <Switch 
+                                        x:Name="Admin" 
+                                        Toggled="OnToggled" 
+                                        OnColor="#4568e4" 
+                                        ThumbColor="#4568e4"
+                                        IsToggled="{Binding Source={x:Reference thisPage}, Path=SelectedUser.Permissions, Converter={StaticResource PermissionToggleConverter}, ConverterParameter={x:Static data:User+UserPermissions.Administrator}}"/>
                                     <Label Text="Administrador"/>
                                 </HorizontalStackLayout>
                             </VerticalStackLayout>

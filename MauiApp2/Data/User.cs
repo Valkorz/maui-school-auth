@@ -55,7 +55,7 @@ namespace MauiApp2.Data
                 Permissions = this.Permissions,
                 TimeOfCreation = TimeOfCreation,
                 Email = this.Email,
-                GradingComponents = this.GradingComponents
+                GradingComponents = [.. this.GradingComponents]
             };
             return user;
         }

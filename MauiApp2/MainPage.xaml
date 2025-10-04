@@ -9,43 +9,57 @@
         <vm:MainViewModel />
     </ContentPage.BindingContext>
 
+    <ContentPage.Resources>
+        <Style x:Key="FlatContentBox" TargetType="Border">
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=#333333}" />
+            <Setter Property="Stroke" Value="Transparent"/>
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="Opacity" Value="0.9"/>
+        </Style>
+    </ContentPage.Resources>
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <VerticalStackLayout Grid.Row="0" HorizontalOptions="Center">
-            <Image Source="logo_facens.png" Aspect="AspectFit" HeightRequest="96"/>
-            <ScrollView Orientation="Horizontal">
-                <HorizontalStackLayout Spacing="3">
-                    <Border Style="{StaticResource TopViewBorder}">
-                        <Button x:Name="Login" Text="Login" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent" BorderColor="Transparent" />
-                    </Border>
-                    <Border Style="{StaticResource TopViewBorder}">
-                        <Button Text="Inovação" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent"  BorderColor="Transparent"/>
-                    </Border>
-                    <Border Style="{StaticResource TopViewBorder}">
-                        <Button Text="Eventos" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent"  BorderColor="Transparent" />
-                    </Border>
-                    <Border Style="{StaticResource TopViewBorder}">
-                        <Button Text="Sobre" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent"   BorderColor="Transparent"/>
-                    </Border>
-                </HorizontalStackLayout>
-            </ScrollView>
-        </VerticalStackLayout>
-
-        <CarouselView Grid.Row="1" x:Name="ImageCarousel" ItemsSource="{Binding ImageSources}"
-                      HorizontalOptions="Fill" VerticalOptions="Fill">
+        <CarouselView x:Name="ImageCarousel" ItemsSource="{Binding ImageSources}"
+              HorizontalOptions="Fill" VerticalOptions="Fill">
             <CarouselView.ItemTemplate>
                 <DataTemplate>
                     <Image Source="{Binding ImageSource}" 
-                           Aspect="AspectFill" 
-                           HorizontalOptions="Fill" 
-                           VerticalOptions="Fill"/>
+                   Aspect="AspectFill" 
+                   HorizontalOptions="Fill" 
+                   VerticalOptions="Fill"/>
                 </DataTemplate>
             </CarouselView.ItemTemplate>
         </CarouselView>
+
+        <Border 
+            Style="{StaticResource FlatContentBox}"
+            Opacity="0.8"
+            MaximumHeightRequest="150"
+            VerticalOptions="Start"
+            >
+
+            <VerticalStackLayout HorizontalOptions="Center">
+                <Image Source="logo_facens.png" Aspect="AspectFit" HeightRequest="96"/>
+                <ScrollView Orientation="Horizontal">
+                    <HorizontalStackLayout Spacing="3">
+                        <Border Style="{StaticResource TopViewBorder}">
+                            <Button x:Name="Login" Text="Login" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent" BorderColor="Transparent" />
+                        </Border>
+                        <Border Style="{StaticResource TopViewBorder}">
+                            <Button Text="Inovação" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent"  BorderColor="Transparent"/>
+                        </Border>
+                        <Border Style="{StaticResource TopViewBorder}">
+                            <Button Text="Eventos" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent"  BorderColor="Transparent" />
+                        </Border>
+                        <Border Style="{StaticResource TopViewBorder}">
+                            <Button Text="Sobre" SemanticProperties.Hint="next page" Clicked="OnNextPageClicked" HorizontalOptions="Fill" BackgroundColor="Transparent"   BorderColor="Transparent"/>
+                        </Border>
+                    </HorizontalStackLayout>
+                </ScrollView>
+            </VerticalStackLayout>
+        </Border>
+        
+        
     </Grid>
 
 </ContentPage>

@@ -26,7 +26,8 @@ namespace MauiApp2.Models
                 Day = Day,
                 PeriodStart = PeriodStart,
                 PeriodEnd = PeriodEnd,
-                Code = Identification
+                Code = Identification,
+                ComponentCode = GradeIdentification
             };
         }
 
@@ -39,6 +40,7 @@ namespace MauiApp2.Models
             PeriodStart = binder.PeriodStart;
             PeriodEnd = binder.PeriodEnd;
             Identification = binder.Code;
+            GradeIdentification = binder.ComponentCode;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using MauiApp2.Data;
@@ -23,6 +24,7 @@ namespace MauiApp2.ClassManaging
 
         //Foregin Key
         public int UserId { get; set; }
+        public string ComponentCode { get; set; } = string.Empty;
         public User User { get; set; } = new User();
 
         public GradingComponentBinder() : this(string.Empty, string.Empty, new ComponentApplicationInfo()) { }

@@ -5,10 +5,8 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Class="MauiApp2.Minipages.CalendarPopup" 
     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}">
-    <!-- Opcional: Garante que não haja cor de fundo inesperada no popup em si -->
 
     <toolkit:Popup.Resources>
-        <!-- Seus estilos existentes -->
         <Style x:Key="CalendarCellStyle" TargetType="Border">
             <Setter Property="Stroke" Value="LightGray" />
             <Setter Property="StrokeThickness" Value="1" />
@@ -16,22 +14,20 @@
         <Style x:Key="CalendarCellButtonStyle" TargetType="Button">
             <Setter Property="BackgroundColor" Value="Transparent"/>
         </Style>
+        <Style x:Key="CalendarCellButtonStyleSelected" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#4568e4"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
         <Style x:Key="CardHeadingStyle" TargetType="BoxView">
             <Setter Property="BackgroundColor" Value="#0099CC"/>
             <Setter Property="MinimumHeightRequest" Value="25"/>
         </Style>
     </toolkit:Popup.Resources>
 
-    <!-- 
-    ================================================================
-    CORREÇÃO: O Grid principal agora tem um BackgroundColor que reage
-    ao tema do aplicativo (AppThemeBinding).
-    Isso garante que o fundo do popup fique escuro no modo escuro.
-    ================================================================
-    -->
-    <Grid>
+    <Grid Padding="10,40">
         <ScrollView x:Name="Calendar" Orientation="Both" IsVisible="True">
-            <VerticalStackLayout>
+            <VerticalStackLayout VerticalOptions="Start">
                 <Grid ColumnSpacing="3" RowSpacing="3" Margin="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100" />
@@ -179,9 +175,7 @@
                     </Border>
 
                 </Grid>
-                <HorizontalStackLayout>
-                    <Button Text="Sair" Style="{StaticResource ButtonStyle1}" Clicked="OnExitClicked" />
-                </HorizontalStackLayout>
+                <Button Text="Sair" Style="{StaticResource ButtonStyle1}" Clicked="OnExitClicked" />
             </VerticalStackLayout>
         </ScrollView>
 
@@ -200,6 +194,7 @@
                                         <BoxView Style="{StaticResource CardHeadingStyle}" Grid.Row="0"/>
                                         <HorizontalStackLayout Spacing="5" Grid.Row="0" Margin="5">
                                             <Label Text="{Binding Identification}" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="White"/>
+                                            <Label Text="{Binding GradeIdentification}" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="White"/>
                                         </HorizontalStackLayout>
 
                                         <!-- Conteúdo -->
@@ -220,8 +215,9 @@
                                                 <HorizontalStackLayout Spacing="3">
                                                     <Label Text="Horário: " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
                                                     <Label Text="{Binding PeriodStart}" HorizontalTextAlignment="Center"/>
+                                                    <Label Text=" - " HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                                    <Label Text="{Binding PeriodEnd}" HorizontalTextAlignment="Center"/>
                                                 </HorizontalStackLayout>
-
                                             </FlexLayout>
                                             <Button Text="Selecionar" Style="{StaticResource ButtonStyle1}" Clicked="OnSelectClicked"/>
                                         </VerticalStackLayout>

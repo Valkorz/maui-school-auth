@@ -55,7 +55,6 @@ namespace MauiApp2.Minipages
             InitializeComponent();
             _usrControl = usrControl;
             _componentName = componentName;
-            UpdateCollection();
 
             ClassroomEntry.ItemsSource = Classrooms_ComboBoxEntries;
             ClassroomEntry.SelectedIndex = 0;
@@ -68,6 +67,9 @@ namespace MauiApp2.Minipages
 
             PeriodEndEntry.ItemsSource = Periods_ComboBoxEntries; 
             PeriodEndEntry.SelectedIndex = 0;
+            UpdateCollection();
+
+            
         }
         async void OnExitClicked(object sender, EventArgs e)
         {
@@ -120,6 +122,9 @@ namespace MauiApp2.Minipages
         {
             try
             {
+                var code = _usrControl._context.Components.SingleOrDefault(x => x.Name == _componentName)?.Code;
+
+
                 var Capp_Info = new ComponentApplicationInfo
                 {
                     Identification = Identification,
@@ -127,8 +132,10 @@ namespace MauiApp2.Minipages
                     Day = Weekday,
                     PeriodStart = From,
                     PeriodEnd = To,
+                    StudentGradeComponentCode = code == null? "null" : code,
                 };
                 await _usrControl.AddComponentApplicationInfoAsync(Capp_Info, _componentName);
+                UpdateCollection();
             }
             catch(Exception ex)
             {
@@ -212,26 +219,25 @@ namespace MauiApp2.Minipages
 
         private void UpdateCollection()
         {
-            var grades = _usrControl._context.Components.ToList();
-            data.Clear();
+            //App.Logger.WriteLineAsync($"Schedules count: {_usrControl._context.Components.SingleOrDefault(x => x.Name == _componentName).AvailableInfo.Count}");
+            var grade = _usrControl._context.Components
+                                     .Include(c => c.AvailableInfo)
+                                     .SingleOrDefault(x => x.Name == _componentName);
 
-            foreach (var grade in grades)
+            if (grade == null) return;
+
+            data.Clear();
+            foreach(var component in grade.AvailableInfo)
             {
-                if(grade.Name == _componentName)
-                {
-                    foreach(var component in grade.AvailableInfo)
-                    {
-                        data.Add(new SchedulingData { 
-                            GradeIdentification = grade.Code,
-                            Classroom           = component.Classroom, 
-                            Day                 = component.Day, 
-                            Identification      = component.Identification, 
-                            PeriodStart         = component.PeriodStart,
-                            PeriodEnd           = component.PeriodEnd,
-                            }
-                        );
+                data.Add(new SchedulingData { 
+                    GradeIdentification = grade.Code,
+                    Classroom           = component.Classroom, 
+                    Day                 = component.Day, 
+                    Identification      = component.Identification, 
+                    PeriodStart         = component.PeriodStart,
+                    PeriodEnd           = component.PeriodEnd,
                     }
-                }
+                );
             }
             SchedulingList.ItemsSource = data;
         }

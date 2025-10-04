@@ -2,6 +2,7 @@ using CommunityToolkit.Maui.Views;
 using MauiApp2.ClassManaging;
 using MauiApp2.Data;
 using MauiApp2.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Collections.ObjectModel;
 
@@ -9,17 +10,31 @@ namespace MauiApp2.Minipages;
 
 public partial class CalendarPopup : Popup
 {
-    public User TargetUser;
+    public UserUpdateModel TargetUser;
+    public string UserCode = string.Empty;
     private readonly UserControl _usrControl;
     private ObservableCollection<SchedulingData> data = new ObservableCollection<SchedulingData>();
     public ObservableCollection<SchedulingData> Data { get { return data; } }
     public object? Result { get; private set; }
-    public CalendarPopup(UserControl usrControl, User targetUser)
+    public CalendarPopup(UserControl usrControl, UserUpdateModel targetUser)
     {
         InitializeComponent();
         _usrControl = usrControl;
-        TargetUser = targetUser;
+        TargetUser = new UserUpdateModel
+        {
+            Id = targetUser.Id,
+            Name = targetUser.Name,
+            Email = targetUser.Email,
+            Password = targetUser.Password,
+            Permissions = targetUser.Permissions,
+            TimeOfCreation = targetUser.TimeOfCreation,
+        };
         UpdateButtons();
+
+        //foreach (var entry in _usrControl.GetUsers().SingleOrDefault(x => x.Name == targetUser.Name).GradingComponents)
+        //{
+        //    App.Logger.WriteLineAsync($"entry info: {entry.Code},{entry.Name}, {entry.Classroom}");
+        //}
     }
 
     async void OnExitClicked(object sender, EventArgs e)
@@ -62,7 +77,9 @@ public partial class CalendarPopup : Popup
 
     private void UpdateCollection(TimeSpan time, Weekdays day)
     {
-        var grades = _usrControl._context.Components.ToList();
+        var grades = _usrControl._context.Components
+                    .Include(c => c.AvailableInfo)
+                    .ToList();
         data.Clear();
 
         foreach (var grade in grades)
@@ -80,6 +97,7 @@ public partial class CalendarPopup : Popup
                         Identification = component.Identification,
                         PeriodStart = component.PeriodStart,
                         PeriodEnd = component.PeriodEnd,
+                        GradeIdentification = grade.Code,
                     }
                     );
                }
@@ -90,11 +108,11 @@ public partial class CalendarPopup : Popup
 
     private async void UpdateButtons()
     {
-        await App.Logger.WriteLineAsync($"Reading user '{TargetUser.Name}' schedule (size: {TargetUser.GradingComponents.Count})... ");
-        foreach(var binder in TargetUser.GradingComponents)
-        {
-            await App.Logger.WriteLineAsync($"{binder.Name} ({binder.Id}): @{binder.Classroom}, {binder.Day} | {binder.PeriodStart}");
-        }
+        //await App.Logger.WriteLineAsync($"Reading user '{TargetUser.Name}' schedule (size: {TargetUser.GradingComponents.Count})... ");
+        //foreach(var binder in TargetUser.GradingComponents)
+        //{
+        //    await App.Logger.WriteLineAsync($"{binder.Name} ({binder.Id}): @{binder.Classroom}, {binder.Day} | {binder.PeriodStart}");
+        //}
         
         await App.Logger.WriteLineAsync("Updating buttons...");
         try
@@ -104,6 +122,8 @@ public partial class CalendarPopup : Popup
                 if (element is Button btn)
                 {
                     string? cellIdentifier = btn.AutomationId;
+                    btn.Text = "";
+                    btn.Style = (Style?)this.Resources["CalendarCellButtonStyle"];
 
                     if (cellIdentifier == null) 
                         continue;
@@ -119,13 +139,18 @@ public partial class CalendarPopup : Popup
                         _ => Weekdays.Saturday,
                     };
 
-                    var schedule = TargetUser.GradingComponents.FirstOrDefault(gc =>
-                    gc.Day == day && gc.PeriodStart == time);
-                    await App.Logger.WriteLineAsync($"Schedule: {schedule}");
+                    var user = await _usrControl._context.Users
+                        .Include(c => c.GradingComponents)
+                        .FirstOrDefaultAsync(x => x.Id == TargetUser.Id);
+                    var schedule = user?.GradingComponents
+                        .FirstOrDefault(gc =>
+                    (gc.Day == day && gc.PeriodStart == time) || (gc.Day == day && TimeSpan.Compare(gc.PeriodStart, time) <= 0 && TimeSpan.Compare(gc.PeriodEnd, time) >= 0));
+                    await App.Logger.WriteLineAsync($"Schedule: {schedule?.Name}, t1 = {schedule?.PeriodStart}");
 
                     if (schedule != null)
                     {
                         btn.Text = schedule.Name;
+                        btn.Style = (Style?)this.Resources["CalendarCellButtonStyleSelected"];
                         continue;
                     }
                     btn.Text = "";
@@ -151,11 +176,24 @@ public partial class CalendarPopup : Popup
 #endif
         if (sender is Button btn && btn.BindingContext is SchedulingData selectedSchedule)
         {
-            bool result = TargetUser.AddGradingComponent(selectedSchedule.ToComponentBinder(), true);
-            await App.Logger.WriteLineAsync($"Added grading component success: {result}");
-            await App.Logger.WriteLineAsync($"Number of grading components: {TargetUser.GradingComponents.Count}");
+            //bool result = TargetUser.AddGradingComponent(selectedSchedule.ToComponentBinder(), true);
+            //await App.Logger.WriteLineAsync($"Added grading component success: {result}");
+            //await App.Logger.WriteLineAsync($"Number of grading components: {TargetUser.GradingComponents.Count}");
+            await App.Logger.WriteLineAsync($"Schedule grading code: {selectedSchedule.GradeIdentification}");
 
+            int res_1 = await _usrControl.AddGradingComponent(selectedSchedule.ToComponentBinder(), TargetUser.Id, true);
             await _usrControl.PushUserAsync(TargetUser);
+
+            await App.Logger.WriteLineAsync($"Operation result: {res_1}");
+            var usr = _usrControl.GetUsers().FirstOrDefault(x => x.Id == TargetUser.Id);
+
+            foreach (var comp in usr.GradingComponents) 
+            {
+                await App.Logger.WriteLineAsync($"component: {comp.Name}");
+            }
+
+            await App.Logger.WriteLineAsync($"Number of components: {_usrControl.GetUsers().SingleOrDefault(x => x.Id == TargetUser.Id)?.GradingComponents.Count}");
+
             UpdateButtons();
             Calendar.IsVisible = true;
             ScheduleListView.IsVisible = false;

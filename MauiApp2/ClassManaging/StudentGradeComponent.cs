@@ -32,6 +32,7 @@ namespace MauiApp2.ClassManaging
 
         // Chave estrangeira para StudentGradeComponent
         public int StudentGradeComponentId { get; set; }
+        public string StudentGradeComponentCode { get; set; } = string.Empty;
     }
     
     public class StudentGradeComponent

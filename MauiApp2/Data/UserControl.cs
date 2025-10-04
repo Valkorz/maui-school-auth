@@ -10,6 +10,7 @@ using System.Linq.Expressions;
 using System.Diagnostics;
 using MauiApp2.ClassManaging;
 using MauiApp2.Attributes;
+using MauiApp2.Models;
 //using Java.Lang;
 //using Android.Service.Controls.Actions;
 
@@ -92,7 +93,7 @@ namespace MauiApp2.Data
         }
 
         //Pushes changes to an existing user
-        public async Task<int> PushUserAsync(User user)
+        public async Task<int> PushUserAsync(UserUpdateModel user)
         {
             User target;
             try
@@ -101,27 +102,76 @@ namespace MauiApp2.Data
                                .Include(u => u.GradingComponents)
                                .SingleAsync(u => u.Id == user.Id);
 
-                await App.Logger.WriteLineAsync($"Found user: {target.Name}");
+                //await App.Logger.WriteLineAsync($"Found user: {target.Name}");
                 //Modify properties
                 target.Password = user.Password;
                 target.Name = user.Name;
                 target.TimeOfCreation = user.TimeOfCreation;
                 target.Permissions = user.Permissions;
                 target.Email = user.Email;
-                target.GradingComponents.Clear();
-                foreach (var component in user.GradingComponents)
-                {
-                    target.GradingComponents.Add(component);
-                    await App.Logger.WriteLineAsync($"Added: {component.Name}");
-                }
-                await App.Logger.WriteLineAsync($"Updating new components with count: {target.GradingComponents.Count}");
-
+               
+                //await App.Logger.WriteLineAsync($"update status: {dbupd}");
                 return await _context.SaveChangesAsync();
             }
             catch (InvalidOperationException)
             {
-                return await AddUserAsync(user);
+                return await AddUserAsync(new User
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Password = user.Password,
+                    Email = user.Email,
+                    Permissions = user.Permissions,
+                    TimeOfCreation = user.TimeOfCreation
+                });
             }       
+        }
+
+        public async Task<int> AddGradingComponent(GradingComponentBinder info, int userId, bool replace = true)
+        {
+            await App.Logger.WriteLineAsync($"Adding grading component '{info.Name}' to user '{userId}'");
+            await App.Logger.WriteLineAsync($"Component code: {info.ComponentCode}");
+            
+            var component = await _context.Components
+                                            .Include(c => c.AvailableInfo)
+                                            .FirstOrDefaultAsync(c => c.Code == info.ComponentCode);
+            
+            var user = await _context.Users
+                                            .Include(c => c.GradingComponents)
+                                            .FirstOrDefaultAsync(c => c.Id == userId);
+
+            var componentSchedule = component?.AvailableInfo.FirstOrDefault(c => c.Day == info.Day && c.PeriodStart == info.PeriodStart);
+
+            await App.Logger.WriteLineAsync($"Component = {component?.Code}, user = {user}, info: {info.Code}, {info.ComponentCode}");
+
+            if (component != null && user != null && componentSchedule != null)
+            {
+                var existingComponent = user.GradingComponents.FirstOrDefault(i => i.ComponentCode == component.Code || i.Name == component.Name || (i.PeriodStart == info.PeriodStart && i.PeriodEnd == info.PeriodEnd && i.Day == info.Day));
+                if (replace && existingComponent != null)
+                {
+                    existingComponent.Day = info.Day;
+                    existingComponent.PeriodStart = info.PeriodStart;
+                    existingComponent.PeriodEnd = info.PeriodEnd;
+                    existingComponent.Classroom = info.Classroom;
+                    existingComponent.Code = info.Code;
+                    existingComponent.Name = info.Name;
+                    existingComponent.ComponentCode = info.ComponentCode;
+                    //await App.Logger.WriteLineAsync($"Replaced with {info.Name}.");
+                    return await _context.SaveChangesAsync();
+                }
+                else if (!replace && existingComponent != null && componentSchedule != null) return -1;
+
+                user.GradingComponents.Add(info);
+                await App.Logger.WriteLineAsync($"Added {info.Name} to {component}. Count: {user.GradingComponents.Count}");
+            }
+            else return -1;
+                
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> RemoveGradingComponent(string infoId, string userId)
+        {
+            return 0;
         }
 
         // GRADING STUFF

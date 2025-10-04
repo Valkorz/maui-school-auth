@@ -13,7 +13,7 @@
         </Style>
     </toolkit:Popup.Resources>
 
-    <FlexLayout Wrap="Wrap" JustifyContent="Center" AlignItems="Center" BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}">
+    <FlexLayout Padding="10,40" Wrap="Wrap" JustifyContent="Center" AlignItems="Center" BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundColorLight}, Dark={StaticResource BackgroundColorDark}}">
         <!-- Cabeçalho -->
         <Grid RowDefinitions="Auto,*">
             <HorizontalStackLayout Grid.Row="0">

@@ -40,6 +40,10 @@ namespace MauiApp2.Migrations
                     b.Property<TimeSpan>("PeriodStart")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("StudentGradeComponentCode")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("StudentGradeComponentId")
                         .HasColumnType("INTEGER");
 
@@ -61,6 +65,10 @@ namespace MauiApp2.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ComponentCode")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

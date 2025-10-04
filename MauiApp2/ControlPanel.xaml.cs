@@ -1,15 +1,20 @@
-using System.Diagnostics;
-using System;
 using MauiApp2.Data;
-using Microsoft.EntityFrameworkCore;
 using MauiApp2.Pages;
+using MauiApp2.ClassManaging;
 using MauiApp2.Resources.Animation;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using MauiApp2.Models;
 
 namespace MauiApp2
 {
     public partial class ControlPanel : ContentPage
     {
         private readonly UserControl _usrControl;
+        private ObservableCollection<SchedulingData> data = new ObservableCollection<SchedulingData>();
+        public ObservableCollection<SchedulingData> Data { get { return data; } }
         public ControlPanel(UserControl usrControl)
         {
             NavigationPage.SetHasNavigationBar(this, false);
@@ -25,6 +30,17 @@ namespace MauiApp2
 #endif
             _usrControl = usrControl;
             Welcome.Text = $"Bem vindo(a), {App.ActiveUser?.Name}!";
+            var weekday = (DateTime.Now.DayOfWeek) switch
+            {
+                DayOfWeek.Monday => Weekdays.Monday,
+                DayOfWeek.Tuesday => Weekdays.Tuesday,
+                DayOfWeek.Wednesday => Weekdays.Wednesday,
+                DayOfWeek.Thursday => Weekdays.Thursday,
+                DayOfWeek.Friday => Weekdays.Friday,
+                _ => Weekdays.Saturday,
+            };
+
+            UpdateCollection(weekday);
             App.Logger.WriteLineAsync($"Bem vindo(a), {App.ActiveUser?.Name}!");
         }
 
@@ -75,6 +91,45 @@ namespace MauiApp2
                 InterfaceAnimator.AnimatePop(btn);
                 Debug.WriteLine("\nFocus\n");
             }
+        }
+
+        private void UpdateCollection(Weekdays day)
+        {
+            var grades = _usrControl._context.Components
+                        .Include(c => c.AvailableInfo)
+                        .ToList();
+            data.Clear();
+
+            foreach (var grade in grades)
+            {
+                string gradeName = grade.Name;
+                foreach (var component in grade.AvailableInfo)
+                {
+                    if (component.Day == day)
+                    {
+                        data.Add(new SchedulingData
+                        {
+                            GradeName = gradeName,
+                            Classroom = component.Classroom,
+                            Day = component.Day,
+                            Identification = component.Identification,
+                            PeriodStart = component.PeriodStart,
+                            PeriodEnd = component.PeriodEnd,
+                            GradeIdentification = grade.Code,
+                        }
+                        );
+                    }
+                }
+            }
+            SchedulingList.ItemsSource = data;
+        }
+
+        private void OnThemeToggle(object? sender, ToggledEventArgs e)
+        {
+            if (Application.Current == null)
+                return;
+
+            App.Current.UserAppTheme = e.Value ? AppTheme.Dark : AppTheme.Light;
         }
     }
 }
