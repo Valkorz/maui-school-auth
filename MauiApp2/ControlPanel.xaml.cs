@@ -131,5 +131,12 @@ namespace MauiApp2
 
             App.Current.UserAppTheme = e.Value ? AppTheme.Dark : AppTheme.Light;
         }
+
+        private async void OnSettingsClicked(object? sender, EventArgs e)
+        {
+            if(Application.Current == null) return;
+
+            await Shell.Current.GoToAsync(nameof(Settings));
+        }
     }
 }

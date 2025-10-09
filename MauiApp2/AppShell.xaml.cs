@@ -9,10 +9,11 @@ namespace MauiApp2
             InitializeComponent();
             try
             {
-                Routing.RegisterRoute(nameof(Page2), typeof(Page2));                //Página de autenticação
-                Routing.RegisterRoute(nameof(ControlPanel), typeof(ControlPanel));  //Painel de controle
-                Routing.RegisterRoute(nameof(ControleAcad), typeof(ControleAcad));  //ADMIN: controle acadêmico
-                Routing.RegisterRoute(nameof(GradingManagement), typeof(GradingManagement));  //ADMIN: controle acadêmico
+                Routing.RegisterRoute(nameof(Page2), typeof(Page2));                            //Login page
+                Routing.RegisterRoute(nameof(ControlPanel), typeof(ControlPanel));              //User Control Panel (main page)
+                Routing.RegisterRoute(nameof(ControleAcad), typeof(ControleAcad));              //ADMIN: User control
+                Routing.RegisterRoute(nameof(GradingManagement), typeof(GradingManagement));    //ADMIN: Scheduling control
+                Routing.RegisterRoute(nameof(Settings), typeof(Settings));                      //App settings
             }
             catch (Exception ex)
             {
